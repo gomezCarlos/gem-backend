@@ -27,7 +27,7 @@ public class Account {
 	@NotNull
 	private String authorities;
 	
-	private Date lastPasswordReset;
+	private Timestamp lastPasswordReset;
 
 	@Column
 	private Timestamp createdAt;
@@ -38,7 +38,7 @@ public class Account {
 	@Column
 	private Boolean isActive;
 
-	public Account(Long id, String username, String password, String authorities, Date lastPasswordReset) {
+	public Account(Long id, String username, String password, String authorities, Timestamp lastPasswordReset) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -144,11 +144,11 @@ public class Account {
 		this.isActive = isActive;
 	}
 
-	public Date getLastPasswordReset() {
+	public Timestamp getLastPasswordReset() {
 		return lastPasswordReset;
 	}
 
-	public void setLastPasswordReset(Date lastPasswordReset) {
+	public void setLastPasswordReset(Timestamp lastPasswordReset) {
 		this.lastPasswordReset = lastPasswordReset;
 	}
 

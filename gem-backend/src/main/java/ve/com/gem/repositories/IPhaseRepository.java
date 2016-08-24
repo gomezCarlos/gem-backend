@@ -11,5 +11,7 @@ import ve.com.gem.entities.Phase;
 public interface IPhaseRepository extends PagingAndSortingRepository<Phase, Long>{
 	
 	public List<Phase> findByNameLike(String name);
+	
+	public List<Phase> findByProjectId(Long id);
 
 }

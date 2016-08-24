@@ -33,4 +33,8 @@ public interface IPhaseService {
 
 	List<Phase> search(String key);
 	
+	Page<Phase> findAll(List<Phase> objects,Pageable pageable);
+	
+	Page<Phase> findByProjectId(Long id, Pageable pageable);
+	
 }

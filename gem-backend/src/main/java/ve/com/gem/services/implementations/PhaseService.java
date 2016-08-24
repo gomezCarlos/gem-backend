@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheProperties.Guava;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -43,6 +42,13 @@ public class PhaseService implements IPhaseService {
 	public Page<Phase> findAll(Pageable pageable) {
 		
 		objects = Lists.newArrayList(repository.findAll(pageable));
+		PageImpl<Phase> pages= new PageImpl<>(objects,pageable,repository.count());
+		
+	return pages;
+	}
+	
+	public Page<Phase> findAll(List<Phase> objects,Pageable pageable) {
+		
 		PageImpl<Phase> pages= new PageImpl<>(objects,pageable,repository.count());
 		
 	return pages;
@@ -113,5 +119,10 @@ public class PhaseService implements IPhaseService {
 	public List<ProjectResource> findProjectFromPhase(Long id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Page<Phase> findByProjectId(Long id, Pageable pageable){
+		
+		return  new  PageImpl<Phase>(Lists.newArrayList(repository.findByProjectId(id)),pageable, repository.count());
 	}
 }

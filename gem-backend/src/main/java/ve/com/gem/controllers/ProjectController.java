@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ve.com.gem.entities.Phase;
 import ve.com.gem.entities.Project;
+import ve.com.gem.resources.PhaseResource;
 import ve.com.gem.resources.ProjectResource;
+import ve.com.gem.resources.assembler.PhaseResourceAssembler;
 import ve.com.gem.resources.assembler.ProjectResourceAssembler;
+import ve.com.gem.services.IPhaseService;
 import ve.com.gem.services.IProjectService;
 
 @RestController
@@ -25,12 +29,21 @@ public class ProjectController {
 
 	@Autowired
 	private IProjectService service;
+	
+	@Autowired
+	private IPhaseService phaseService;
 
 	@Autowired
 	private ProjectResourceAssembler assembler;
+	
+	@Autowired
+	private PhaseResourceAssembler phaseAssembler;
 
 	@Autowired
 	private PagedResourcesAssembler<Project> pageAssembler;
+	
+	@Autowired
+	private PagedResourcesAssembler<Phase> pagePhaseAssembler;
 	
 	public ProjectController() {
 		// TODO Auto-generated constructor stub
@@ -109,6 +122,17 @@ public class ProjectController {
 		{
 				return new ResponseEntity<Project>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value="/{id}/phases",method=RequestMethod.GET,produces="application/hal+json")
+	@ResponseBody
+	public PagedResources<PhaseResource> phases(@PathVariable Long id,Pageable pageable) {
+		
+		Project project = service.findById(id);
+
+		Page<Phase> object = phaseService.findByProjectId(id,pageable);
+		
+		return pagePhaseAssembler.toResource(object, phaseAssembler);
 	}
 	
 }

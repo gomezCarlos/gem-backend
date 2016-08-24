@@ -1,5 +1,8 @@
 package ve.com.gem.services.implementations;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +35,11 @@ public class AccountService implements IAccountService {
 
     //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @Transactional(readOnly = false)
+    @Override
     public Account save(Account account) {
     	if (account.getPassword() != null) {
     		account.setPassword(passwordEncoder.encode(account.getPassword()));
+    		account.setIsActive(true);
     	}
     	
     	if (account.getId() != null) {
@@ -75,6 +80,17 @@ public class AccountService implements IAccountService {
 	public void delete(Account object) {
 		accountRepository.delete(object);
 		
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public Account changePassword(Account account) {
+		account.setId(account.getId());
+		account.setPassword(passwordEncoder.encode(account.getPassword()));
+		account.setIsActive(true);
+		account.setLastPasswordReset(Timestamp.valueOf(LocalDateTime.now()));
+		System.out.println("service last pass: " + account.getLastPasswordReset());
+		return account;
 	}    
     
 }

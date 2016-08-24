@@ -4,6 +4,9 @@ import io.jsonwebtoken.*;
 import ve.com.gem.entities.Account;
 import ve.com.gem.repositories.IAccountRepository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,22 +49,24 @@ public class TokenUtils {
     return username;
   }
 
-  public Date getCreatedDateFromToken(String token) {
-    Date created;
+  public Timestamp getCreatedDateFromToken(String token) {
+    Timestamp created;
     try {
       final Claims claims = this.getClaimsFromToken(token);
-      created = new Date((Long) claims.get("created"));
+      created = new Timestamp((Long) claims.get("created"));
     } catch (Exception e) {
       created = null;
     }
     return created;
   }
 
-  public Date getExpirationDateFromToken(String token) {
-    Date expiration;
+  public Timestamp getExpirationDateFromToken(String token) {
+    Timestamp expiration;
     try {
       final Claims claims = this.getClaimsFromToken(token);
-      expiration = claims.getExpiration();
+      expiration = new Timestamp(claims.getExpiration().getTime()); 
+      
+      System.out.println("expiration: " + expiration);
     } catch (Exception e) {
       expiration = null;
     }
@@ -92,20 +97,21 @@ public class TokenUtils {
     return claims;
   }
 
-  private Date generateCurrentDate() {
-    return new Date(System.currentTimeMillis());
+  private Timestamp generateCurrentDate() {
+	Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
+    return timestamp;
   }
 
-  private Date generateExpirationDate() {
-    return new Date(System.currentTimeMillis() + this.expiration * 1000);
+  private Timestamp generateExpirationDate() {
+    return new Timestamp(System.currentTimeMillis() + this.expiration * 1000);
   }
 
   private Boolean isTokenExpired(String token) {
-    final Date expiration = this.getExpirationDateFromToken(token);
+    final Timestamp expiration = this.getExpirationDateFromToken(token);
     return expiration.before(this.generateCurrentDate());
   }
 
-  private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
+  private Boolean isCreatedBeforeLastPasswordReset(Timestamp created, Timestamp lastPasswordReset) {
     return (lastPasswordReset != null && created.before(lastPasswordReset));
   }
 
@@ -142,8 +148,8 @@ public class TokenUtils {
       .compact();
   }
 
-  public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
-    final Date created = this.getCreatedDateFromToken(token);
+  public Boolean canTokenBeRefreshed(String token, Timestamp lastPasswordReset) {
+    final Timestamp created = Timestamp.valueOf(this.getCreatedDateFromToken(token).toString());
     return (!(this.isCreatedBeforeLastPasswordReset(created, lastPasswordReset)) && (!(this.isTokenExpired(token)) || this.ignoreTokenExpiration(token)));
   }
 
@@ -162,11 +168,11 @@ public class TokenUtils {
   public Boolean validateToken(String token, User user) {
     //AccountUserDetails customUser = new AccountUserDetails(user);
 	final String username = this.getUsernameFromToken(token);
-    final Date created = this.getCreatedDateFromToken(token);
+    final Timestamp created = Timestamp.valueOf(this.getCreatedDateFromToken(token).toString());
     //final Date expiration = this.getExpirationDateFromToken(token);
     
     Account account = accountRepository.findByUsername(username);
-    final Date lastPasswordReset = account.getLastPasswordReset();
+    final Timestamp lastPasswordReset = account.getLastPasswordReset();
     final Boolean isActive = account.getIsActive();
     
     if (null != isActive)
