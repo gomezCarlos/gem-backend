@@ -7,6 +7,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,6 +70,13 @@ public class AccountController {
 			new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			return null;
 		}
+	}
+	
+	@RequestMapping(value = "/current", method = RequestMethod.GET)
+	public ResponseEntity<AccountResource> getCurrentUser(Pageable pageable) {
+		
+		Account account = service.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "search/findByUsername/{username}", method = RequestMethod.GET)
