@@ -24,4 +24,6 @@ public interface ITaskRepository extends PagingAndSortingRepository<Task, Long> 
     @SuppressWarnings("unchecked")
     Task save (Task object);
 
+	public Page<Task> findByPhaseId(Long id,Pageable pageable);
+
 }

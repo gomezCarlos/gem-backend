@@ -64,7 +64,7 @@ public class AccountController {
 		return pageAssembler.toResource(accounts, assembler);
 	}
 
-	@RequestMapping(value = "search/findByUsernameLike/{username}", method = RequestMethod.GET)
+	@RequestMapping(value = "search/findByUsernameLike/{username}/", method = RequestMethod.GET)
 	public PagedResources<AccountResource> loadAll(@PathVariable String username, Pageable pageable) {
 
 		if (null != username) {
@@ -83,21 +83,21 @@ public class AccountController {
 		return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "search/findByUsername/{username}", method = RequestMethod.GET)
-	public ResponseEntity<Account> findByUsername(@PathVariable String username) {
+	@RequestMapping(value = "search/findByUsername/{username}/", method = RequestMethod.GET)
+	public ResponseEntity<AccountResource> findByUsername(@PathVariable String username) {
 
 		if (null != username) {
 			Account account = service.findByUsername(username);
 			if (null != account) {
 
-				return new ResponseEntity<Account>(account, HttpStatus.OK);
+				return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.OK);
 				
 			} else {
-				return new ResponseEntity<Account>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<AccountResource>(HttpStatus.NOT_FOUND);
 			}
 			
 		} else {
-			return new ResponseEntity<Account>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<AccountResource>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -134,6 +134,8 @@ public class AccountController {
 		if (null != account) {
 			
 			account.setId(id);
+			System.out.println(account.getDepartment().toString());
+			System.out.println(account.getCharge().toString());
 			service.save(account);
 			return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.OK);
 		}

@@ -24,4 +24,6 @@ public interface ITaskService {
 	
 	public boolean delete(Task object);
 	
+	public Page<Task> findByPhaseId(Long id, Pageable pageable);
+	
 }

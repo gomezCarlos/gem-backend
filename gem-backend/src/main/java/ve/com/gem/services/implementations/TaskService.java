@@ -135,4 +135,10 @@ public class TaskService implements ITaskService {
 		return repository.exists(id);
 	}
 
+	@Override
+	public Page<Task> findByPhaseId(Long id,Pageable pageable) {
+		
+		return repository.findByPhaseId(id, pageable);
+	}
+
 }

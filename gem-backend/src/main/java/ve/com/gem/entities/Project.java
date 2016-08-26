@@ -43,6 +43,13 @@ public class Project {
 
 	private Date dateEnd;
 	
+	@Column(nullable= true)
+	private int value;
+	
+	@ManyToOne
+	@JoinColumn(name = "indicator_id")
+	private Indicator indicator;
+	
 		
 	//@ManyToOne
 	//@JoinColumn(name = "risk_id", nullable = true, insertable = true, updatable = true)
@@ -71,6 +78,35 @@ public class Project {
 		super();
 	}
 	
+	
+	
+	public Project(Long id, String name, String description, Timestamp createdAt, Timestamp updatedAt,
+			Timestamp deletedAt, Boolean isActive, Date estimatedStartDate, Date startDate, Date estimatedDateEnd,
+			Date dateEnd, int value, Indicator indicator, String status, List<Phase> phases, List<Nature> natures,
+			List<Department> departments, List<Employee> responsible) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.deletedAt = deletedAt;
+		this.isActive = isActive;
+		this.estimatedStartDate = estimatedStartDate;
+		this.startDate = startDate;
+		this.estimatedDateEnd = estimatedDateEnd;
+		this.dateEnd = dateEnd;
+		this.setValue(value);
+		this.indicator = indicator;
+		this.status = status;
+		this.phases = phases;
+		this.natures = natures;
+		this.departments = departments;
+		this.responsible = responsible;
+	}
+
+
+
 	public List<Nature> getNatures() {
 		return natures;
 	}
@@ -246,14 +282,30 @@ public class Project {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+
+
+	public int getValue() {
+		return value;
+	}
+
+
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Project [id=" + id + ", name=" + name + "]";
+		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + ", isActive=" + isActive
+				+ ", estimatedStartDate=" + estimatedStartDate + ", startDate=" + startDate + ", estimatedDateEnd="
+				+ estimatedDateEnd + ", dateEnd=" + dateEnd + ", value=" + value + ", indicator=" + indicator
+				+ ", status=" + status + ", phases=" + phases + ", natures=" + natures + ", departments=" + departments
+				+ ", responsible=" + responsible + "]";
 	}
+
+	
 
 }

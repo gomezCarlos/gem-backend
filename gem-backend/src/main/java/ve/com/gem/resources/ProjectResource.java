@@ -28,7 +28,12 @@ public class ProjectResource extends ResourceSupport {
 	private Timestamp deletedAt;
 
 	private Boolean isActive;
-
+	private String indicatorName;
+	// @JsonManagedReference
+	private IndicatorResource indicator;
+    
+	private int value;
+	
 	private Long ids;
 
 	public String getName() {
@@ -118,6 +123,30 @@ public class ProjectResource extends ResourceSupport {
 
 	public void setIds(Long ids) {
 		this.ids = ids;
+	}
+
+	public IndicatorResource getIndicator() {
+		return indicator;
+	}
+
+	public void setIndicator(IndicatorResource indicator) {
+		this.indicator = indicator;
+	}
+
+	public String getIndicatorName() {
+		return indicatorName;
+	}
+
+	public void setIndicatorName(String indicatorName) {
+		this.indicatorName = indicatorName;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 	

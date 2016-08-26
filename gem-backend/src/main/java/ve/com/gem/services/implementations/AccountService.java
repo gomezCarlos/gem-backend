@@ -1,7 +1,6 @@
 package ve.com.gem.services.implementations;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 
 import ve.com.gem.entities.Account;
+import ve.com.gem.entities.Charge;
+import ve.com.gem.entities.Department;
 import ve.com.gem.repositories.IAccountRepository;
+import ve.com.gem.repositories.IChargeRepository;
+import ve.com.gem.repositories.IDepartmentRepository;
 import ve.com.gem.services.IAccountService;
 
 @Transactional(readOnly = true)
@@ -32,7 +35,14 @@ public class AccountService implements IAccountService {
 
     @Autowired
     private IAccountRepository accountRepository;
-
+    
+    @Autowired
+    private IDepartmentRepository departmentRepository;
+    
+    @Autowired
+    private IChargeRepository chargeRepository;
+    
+    
     //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     @Transactional(readOnly = false)
     @Override
@@ -40,6 +50,7 @@ public class AccountService implements IAccountService {
     	if (account.getPassword() != null) {
     		account.setPassword(passwordEncoder.encode(account.getPassword()));
     		account.setIsActive(true);
+    		
     	}
     	
     	if (account.getId() != null) {
@@ -60,7 +71,7 @@ public class AccountService implements IAccountService {
 
 	@Override
 	public Page<Account> findByUsernameLike(String key, Pageable pageable) {
-		accountRepository.findByUsernameLike("%"+key+"%", pageable);
+		accounts = accountRepository.findByUsernameLike("%"+key+"%", pageable);
 		PageImpl<Account> accountPages= new PageImpl<>(accounts, pageable, accountRepository.count());
 		return accountPages;
 	}
@@ -91,6 +102,6 @@ public class AccountService implements IAccountService {
 		account.setLastPasswordReset(Timestamp.valueOf(LocalDateTime.now()));
 		System.out.println("service last pass: " + account.getLastPasswordReset());
 		return account;
-	}    
+	}
     
 }

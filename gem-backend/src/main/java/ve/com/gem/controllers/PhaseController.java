@@ -2,6 +2,7 @@ package ve.com.gem.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -15,9 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ve.com.gem.entities.Phase;
+import ve.com.gem.entities.Task;
 import ve.com.gem.resources.PhaseResource;
+import ve.com.gem.resources.TaskResource;
 import ve.com.gem.resources.assembler.PhaseResourceAssembler;
+import ve.com.gem.resources.assembler.TaskResourceAssembler;
 import ve.com.gem.services.IPhaseService;
+import ve.com.gem.services.ITaskService;
 
 @RestController
 @RequestMapping(value = "/api/v1/phases")
@@ -27,10 +32,19 @@ public class PhaseController {
 	IPhaseService service;
 	
 	@Autowired
+	ITaskService taskService;
+	
+	@Autowired
 	private PhaseResourceAssembler assembler;
 
 	@Autowired
 	private PagedResourcesAssembler<Phase> pageAssembler;
+	
+	@Autowired
+	private TaskResourceAssembler taskAssembler;
+
+	@Autowired
+	private PagedResourcesAssembler<Task> taskPageAssembler;
 	
 	public PhaseController() {
 		// TODO Auto-generated constructor stub
@@ -114,6 +128,12 @@ public class PhaseController {
 		{
 				return new ResponseEntity<Phase>(HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value="/{id}/tasks", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
+	public PagedResources<TaskResource> tasks(@PathVariable Long id, Pageable pageable){
+		Page<Task> tasks = taskService.findByPhaseId(id, pageable);
+	return taskPageAssembler.toResource(tasks, taskAssembler);	
 	}
 	
 	

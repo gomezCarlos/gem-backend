@@ -21,7 +21,8 @@ public class DepartmentResourceAssembler extends ResourceAssemblerSupport<Depart
 		resource.setName(object.getName());
 		resource.setDescription(object.getDescription());
 		resource.setIds(object.getId());
-		resource.add(linkTo(DepartmentController.class).slash("").slash(object.getId()).withSelfRel());
+		//the resource link is being added automatically, so now it's commented.
+		//resource.add(linkTo(DepartmentController.class).slash(object.getId()).withSelfRel());
 		return resource;
 	}	
 }

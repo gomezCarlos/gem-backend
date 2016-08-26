@@ -1,6 +1,5 @@
 package ve.com.gem.entities;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -8,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -28,6 +29,18 @@ public class Account {
 	private String authorities;
 	
 	private Timestamp lastPasswordReset;
+	
+	private String firstname;
+	
+	private String lastname;
+	
+	@ManyToOne
+	@JoinColumn(name = "department_id", nullable = true, insertable = true, updatable = true)
+	private Department department;
+	
+	@ManyToOne
+	@JoinColumn(name = "charge_id", nullable = true, insertable = true, updatable = true)
+	private Charge charge;
 
 	@Column
 	private Timestamp createdAt;
@@ -38,13 +51,56 @@ public class Account {
 	@Column
 	private Boolean isActive;
 
-	public Account(Long id, String username, String password, String authorities, Timestamp lastPasswordReset) {
+
+	public Account(Long id, String username, String password, String authorities, Timestamp lastPasswordReset,
+			String firstname, String lastname, Department department, Charge charge, Timestamp createdAt,
+			Timestamp updatedAt, Timestamp deletedAt, Boolean isActive) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.authorities = authorities;
 		this.lastPasswordReset = lastPasswordReset;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.department = department;
+		this.charge = charge;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.deletedAt = deletedAt;
+		this.isActive = isActive;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public Charge getCharge() {
+		return charge;
+	}
+
+	public void setCharge(Charge charge) {
+		this.charge = charge;
 	}
 
 	public Account() {
@@ -180,8 +236,9 @@ public class Account {
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", authorities="
-				+ authorities + ", lastPasswordReset=" + lastPasswordReset + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", deletedAt=" + deletedAt + ", isActive=" + isActive + "]";
+				+ authorities + ", lastPasswordReset=" + lastPasswordReset + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", department=" + department + ", charge=" + charge + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + ", isActive=" + isActive + "]";
 	}
 
 }

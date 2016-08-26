@@ -4,6 +4,9 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import ve.com.gem.entities.Charge;
+import ve.com.gem.entities.Department;
+
 
 @Relation(collectionRelation = "accounts")
 public class AccountResource extends ResourceSupport {
@@ -13,6 +16,14 @@ public class AccountResource extends ResourceSupport {
     private String password;
 
     private String authorities;
+    
+    private String firstname;
+    
+    private String lastname;
+    
+    private Department department;
+    
+    private Charge charge;
     
     private Long ids;
 
@@ -48,6 +59,40 @@ public class AccountResource extends ResourceSupport {
 
 	public void setIds(Long ids) {
 		this.ids = ids;
+	}
+
+	@JsonIgnore
+	public Charge getCharge() {
+		return charge;
+	}
+
+	public void setCharge(Charge charge) {
+		this.charge = charge;
+	}
+
+	@JsonIgnore
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 	
 }
