@@ -51,6 +51,11 @@ public class Organization {
 		super();
 	}
 
+	public Organization(Long id) {
+		super();
+		this.id = id;
+	}
+
 	/**
 	 * @return the id
 	 */

@@ -35,10 +35,8 @@ public class Indicator implements Serializable {
 	public Indicator() {
 
 	}
-
-	public Indicator(String description2) {
-		// TODO Auto-generated constructor stub
-		this.setDescription(description2);
+	public Indicator(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {

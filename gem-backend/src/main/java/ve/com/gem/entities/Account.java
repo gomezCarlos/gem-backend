@@ -41,6 +41,10 @@ public class Account {
 	@ManyToOne
 	@JoinColumn(name = "charge_id", nullable = true, insertable = true, updatable = true)
 	private Charge charge;
+	
+	@ManyToOne
+	@JoinColumn(name = "organization_id", nullable = true, insertable = true, updatable = true)
+	private Organization organization;
 
 	@Column
 	private Timestamp createdAt;
@@ -51,9 +55,8 @@ public class Account {
 	@Column
 	private Boolean isActive;
 
-
 	public Account(Long id, String username, String password, String authorities, Timestamp lastPasswordReset,
-			String firstname, String lastname, Department department, Charge charge, Timestamp createdAt,
+			String firstname, String lastname, Department department, Charge charge, Organization organization, Timestamp createdAt,
 			Timestamp updatedAt, Timestamp deletedAt, Boolean isActive) {
 		super();
 		this.id = id;
@@ -65,6 +68,7 @@ public class Account {
 		this.lastname = lastname;
 		this.department = department;
 		this.charge = charge;
+		this.organization = organization;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.deletedAt = deletedAt;
@@ -101,6 +105,14 @@ public class Account {
 
 	public void setCharge(Charge charge) {
 		this.charge = charge;
+	}
+
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 
 	public Account() {
@@ -237,8 +249,9 @@ public class Account {
 	public String toString() {
 		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", authorities="
 				+ authorities + ", lastPasswordReset=" + lastPasswordReset + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", department=" + department + ", charge=" + charge + ", createdAt=" + createdAt
-				+ ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + ", isActive=" + isActive + "]";
+				+ lastname + ", department=" + department + ", charge=" + charge + ", organization=" + organization
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + ", isActive="
+				+ isActive + "]";
 	}
 
 }

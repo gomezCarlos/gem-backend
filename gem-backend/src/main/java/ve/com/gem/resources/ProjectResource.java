@@ -6,6 +6,8 @@ import java.sql.Timestamp;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
+import ve.com.gem.entities.Indicator;
+
 @Relation(collectionRelation = "projects")
 public class ProjectResource extends ResourceSupport {
 
@@ -30,7 +32,7 @@ public class ProjectResource extends ResourceSupport {
 	private Boolean isActive;
 	private String indicatorName;
 	// @JsonManagedReference
-	private IndicatorResource indicator;
+	private Indicator indicator;
     
 	private int value;
 	
@@ -125,11 +127,11 @@ public class ProjectResource extends ResourceSupport {
 		this.ids = ids;
 	}
 
-	public IndicatorResource getIndicator() {
+	public Indicator getIndicator() {
 		return indicator;
 	}
 
-	public void setIndicator(IndicatorResource indicator) {
+	public void setIndicator(Indicator indicator) {
 		this.indicator = indicator;
 	}
 

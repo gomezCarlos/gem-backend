@@ -27,7 +27,7 @@ public class OrganizationResourceAssembler extends ResourceAssemblerSupport<Orga
 		resource.setIsActive(organization.getIsActive());
 		//organizationResource.setCompany(organization.getCompany());
 		resource.setIds(organization.getId());
-		resource.add(linkTo(OrganizationController.class).slash("").slash(organization.getId()).withSelfRel());
+		//resource.add(linkTo(OrganizationController.class).slash("").slash(organization.getId()).withSelfRel());
 		return resource;
 	}
 

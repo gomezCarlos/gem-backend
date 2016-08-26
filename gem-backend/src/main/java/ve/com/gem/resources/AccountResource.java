@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ve.com.gem.entities.Charge;
 import ve.com.gem.entities.Department;
+import ve.com.gem.entities.Organization;
 
 
 @Relation(collectionRelation = "accounts")
@@ -24,6 +25,8 @@ public class AccountResource extends ResourceSupport {
     private Department department;
     
     private Charge charge;
+    
+    private Organization organization;
     
     private Long ids;
 
@@ -93,6 +96,15 @@ public class AccountResource extends ResourceSupport {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	@JsonIgnore
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
 	}
 	
 }

@@ -94,9 +94,12 @@ public class Phase {
 	public Phase() {
 
 	}
+	
 
-	
-	
+	public Phase(Long id) {
+		super();
+		this.id = id;
+	}
 
 	/**
 	 * @return the id

@@ -107,6 +107,18 @@ public class Project {
 
 
 
+	public Indicator getIndicator() {
+		return indicator;
+	}
+
+
+
+	public void setIndicator(Indicator indicator) {
+		this.indicator = indicator;
+	}
+
+
+
 	public List<Nature> getNatures() {
 		return natures;
 	}
