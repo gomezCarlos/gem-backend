@@ -31,12 +31,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private EntryPointUnauthorizedHandler authenticationEntryPoint;
-	@Autowired
-	private AuthFailure authenticationFailureHandler;
-	@Autowired
-	private AuthSuccess authenticationSuccessHandler;
-//	@Autowired
-//	private LogoutSuccessHandler logoutSuccessHandler;
+
 	@Autowired
 	private UserDetailServiceImpl userDetailService;
 

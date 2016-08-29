@@ -138,8 +138,8 @@ public class AccountController {
 		}
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.PUT)
-	public ResponseEntity<AccountResource> updateAccount(@RequestBody Account account) {
+	@RequestMapping(value = "/changePassword", method = RequestMethod.PUT)
+	public ResponseEntity<AccountResource> updatePassword(@RequestBody Account account) {
 
 		Account accountSearch = service.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -150,8 +150,6 @@ public class AccountController {
 
 		if (null != account) {
 			
-			System.out.println(accountSearch.toString());
-			//accountSearch.setId(account.getId());
 			accountSearch.setPassword(account.getPassword());
 			service.changePassword(accountSearch);
 			
