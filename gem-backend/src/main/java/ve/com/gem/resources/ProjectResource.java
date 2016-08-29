@@ -37,6 +37,16 @@ public class ProjectResource extends ResourceSupport {
 	private int value;
 	
 	private Long ids;
+	
+	private Float advance;
+
+	public Float getAdvance() {
+		return advance;
+	}
+
+	public void setAdvance(Float advance) {
+		this.advance = advance;
+	}
 
 	public String getName() {
 		return name;

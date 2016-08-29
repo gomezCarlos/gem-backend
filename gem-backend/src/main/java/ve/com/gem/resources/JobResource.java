@@ -27,6 +27,16 @@ public class JobResource extends ResourceSupport {
 	private TaskResource task;
 
 	private Long ids;
+	
+	private Float advance;
+
+	public Float getAdvance() {
+		return advance;
+	}
+
+	public void setAdvance(Float advance) {
+		this.advance = advance;
+	}
 
 	public String getName() {
 		return name;

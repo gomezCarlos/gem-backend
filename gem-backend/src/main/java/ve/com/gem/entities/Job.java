@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Job {
+public class Job implements Measurable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +35,8 @@ public class Job {
 	@JsonBackReference(value = "task-job")
 	@JoinColumn(name = "task_id", updatable = true, insertable = true, nullable = true)
 	private Task task;
+	@Column(nullable= false)
+	private Float value;
 
 	public Job(Long id, String name, String description, Timestamp createdAt,
 			Timestamp updatedAt, Timestamp deletedAt, Boolean isActive,
@@ -174,6 +176,20 @@ public class Job {
 	public void setResponsable(Account responsable) {
 		this.responsable = responsable;
 	}
+	
+	
+
+	public Float getValue() {
+		return value;
+	}
+
+	/*
+	 * Must get a float value between 0 and 1.
+	 */
+	public void setValue(Float value) {
+		if(value >=0 && value <=1)
+		this.value = value;
+	}
 
 	@Override
 	public int hashCode() {
@@ -208,6 +224,17 @@ public class Job {
 	@Override
 	public String toString() {
 		return "Job [id=" + id + ", name=" + name + "]";
+	}
+
+	/*
+	 * Returns current value of advance.
+	 * @see ve.com.gem.entities.Measurable#getAdvance()
+	 */
+	@Override
+	public Float getAdvance() {
+		Float advance =0F;
+		advance+= value;
+		return advance;
 	}
 
 }

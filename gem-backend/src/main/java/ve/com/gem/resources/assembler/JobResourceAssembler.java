@@ -17,24 +17,24 @@ public class JobResourceAssembler extends ResourceAssemblerSupport<Job, JobResou
 	}
 	
 	@Override
-	public JobResource toResource(Job job) {
-		JobResource resource = createResourceWithId(job.getId(), job);
-		resource.setName(job.getName());
-		resource.setDescription(job.getDescription());
-		resource.setCreatedAt(job.getCreatedAt());
-		resource.setUpdatedAt(job.getUpdatedAt());
-		resource.setDeletedAt(job.getDeletedAt());
-		resource.setIsActive(job.getIsActive());
+	public JobResource toResource(Job object) {
+		JobResource resource = createResourceWithId(object.getId(), object);
+		resource.setName(object.getName());
+		resource.setDescription(object.getDescription());
+		resource.setCreatedAt(object.getCreatedAt());
+		resource.setUpdatedAt(object.getUpdatedAt());
+		resource.setDeletedAt(object.getDeletedAt());
+		resource.setIsActive(object.getIsActive());
 		//jobResource.setTask(job.getTask());
-		resource.setIds(job.getId());
-		
-		if(job.getTask()!=null){
-			resource.setTaskName(job.getTask().getName());
-			resource.add(linkTo(JobController.class).slash(job.getId()).withRel("task"));
+		resource.setIds(object.getId());
+		resource.setAdvance(object.getAdvance());
+		if(object.getTask()!=null){
+			resource.setTaskName(object.getTask().getName());
+			resource.add(linkTo(JobController.class).slash(object.getId()).withRel("task"));
 		}
 		
-		resource.add(linkTo(JobController.class).slash("").slash(job.getId()).withSelfRel());
-		resource.add(linkTo(JobController.class).slash(job.getId()).slash("tasks").withRel("tasks"));
+		resource.add(linkTo(JobController.class).slash("").slash(object.getId()).withSelfRel());
+		resource.add(linkTo(JobController.class).slash(object.getId()).slash("tasks").withRel("tasks"));
 		return resource;
 	}
 

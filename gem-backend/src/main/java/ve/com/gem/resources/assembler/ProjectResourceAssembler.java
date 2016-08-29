@@ -34,6 +34,7 @@ public class ProjectResourceAssembler extends ResourceAssemblerSupport<Project, 
 		resource.setIsActive(object.getIsActive());
 		resource.setIds(object.getId());
 		resource.setIndicator(object.getIndicator());
+		resource.setAdvance(object.getAdvance());
 		//MOISES		
 		if(resource.getIndicator()!=null){
 			resource.setIndicatorName(resource.getIndicator().getName());

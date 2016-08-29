@@ -21,26 +21,27 @@ public class PhaseResourceAssembler extends ResourceAssemblerSupport<Phase, Phas
 	}
 
 	@Override
-	public PhaseResource toResource(Phase phase) {
+	public PhaseResource toResource(Phase object) {
 		PhaseResource resource = new PhaseResource();
-		resource.setName(phase.getName());
-		resource.setDescription(phase.getDescription());
-		resource.setValue(phase.getValue());
-		resource.setDateEnd(phase.getDateEnd());
-		resource.setEstimatedDateEnd(phase.getEstimatedDateEnd());
-		resource.setStartDate(phase.getStartDate());
-		resource.setEstimatedStartDate(phase.getEstimatedStartDate());
-		resource.setIds(phase.getId());
+		resource.setName(object.getName());
+		resource.setDescription(object.getDescription());
+		resource.setValue(object.getValue());
+		resource.setDateEnd(object.getDateEnd());
+		resource.setEstimatedDateEnd(object.getEstimatedDateEnd());
+		resource.setStartDate(object.getStartDate());
+		resource.setEstimatedStartDate(object.getEstimatedStartDate());
+		resource.setIds(object.getId());
 		//resource.setProject(phase.getProject());
-		resource.setDepartment(phase.getDepartment());
-		resource.add(linkTo(PhaseController.class).slash("").slash(phase.getId()).withSelfRel());
-		if(phase.getProject()!=null){
-			resource.setProjectName(phase.getProject().getName());
-			resource.add(linkTo(ProjectController.class).slash(phase.getId()).withRel("project"));
+		resource.setDepartment(object.getDepartment());
+		resource.setAdvance(object.getAdvance());
+		resource.add(linkTo(PhaseController.class).slash("").slash(object.getId()).withSelfRel());
+		if(object.getProject()!=null){
+			resource.setProjectName(object.getProject().getName());
+			resource.add(linkTo(ProjectController.class).slash(object.getId()).withRel("project"));
 		}
-		if(phase.getDepartment()!=null)
-			resource.setDepartmentName(phase.getDepartment().getName());
-		resource.add(linkTo(PhaseController.class).slash(phase.getId()).slash("tasks").withRel("tasks"));
+		if(object.getDepartment()!=null)
+			resource.setDepartmentName(object.getDepartment().getName());
+		resource.add(linkTo(PhaseController.class).slash(object.getId()).slash("tasks").withRel("tasks"));
 		
 		return resource;
 		

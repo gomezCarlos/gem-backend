@@ -31,6 +31,16 @@ public class PhaseResource extends ResourceSupport {
 	@Column
 	private Date dateEnd;
 	
+	private Float advance;
+
+	public Float getAdvance() {
+		return advance;
+	}
+
+	public void setAdvance(Float advance) {
+		this.advance = advance;
+	}
+	
 	public Date getEstimatedStartDate() {
 		return estimatedStartDate;
 	}
