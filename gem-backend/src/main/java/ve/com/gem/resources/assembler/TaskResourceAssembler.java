@@ -23,30 +23,31 @@ public class TaskResourceAssembler extends ResourceAssemblerSupport<Task, TaskRe
 	}
 	
 	@Override
-	public TaskResource toResource(Task task) {
+	public TaskResource toResource(Task object) {
 		TaskResource resource = new TaskResource();
-		resource.setName(task.getName());
-		resource.setDescription(task.getDescription());
-		resource.setCreatedAt(task.getCreatedAt());
-		resource.setUpdatedAt(task.getUpdatedAt());
-		resource.setDeletedAt(task.getDeletedAt());
-		resource.setIsActive(task.getIsActive());
-		if(task.getDocumentState()!=null)
-			resource.setDocumentState(taskService.findDocumentStateFromTaskId(task.getDocumentState().getId()));
-		resource.setEstimatedStartDate(task.getEstimatedStartDate());
-		resource.setStartDate(task.getStartDate());
-		resource.setEstimatedDateEnd(task.getEstimatedDateEnd());
-		resource.setDateEnd(task.getDateEnd());
-		resource.setIds(task.getId());
+		resource.setName(object.getName());
+		resource.setDescription(object.getDescription());
+		resource.setCreatedAt(object.getCreatedAt());
+		resource.setUpdatedAt(object.getUpdatedAt());
+		resource.setDeletedAt(object.getDeletedAt());
+		resource.setIsActive(object.getIsActive());
+		if(object.getDocumentState()!=null)
+			resource.setDocumentState(taskService.findDocumentStateFromTaskId(object.getDocumentState().getId()));
+		resource.setEstimatedStartDate(object.getEstimatedStartDate());
+		resource.setStartDate(object.getStartDate());
+		resource.setEstimatedDateEnd(object.getEstimatedDateEnd());
+		resource.setDateEnd(object.getDateEnd());
+		resource.setIds(object.getId());
+		resource.setAdvance(object.getAdvance());
 		//MOISES desde aqui 22-08-2016
-		if(task.getPhase()!=null){
-			resource.setPhaseName(task.getPhase().getName());
-			resource.add(linkTo(TaskController.class).slash(task.getId()).withRel("phase"));
+		if(object.getPhase()!=null){
+			resource.setPhaseName(object.getPhase().getName());
+			resource.add(linkTo(TaskController.class).slash(object.getId()).withRel("phase"));
 		}
 		//MOISES hasta aqui 22-08-2016
-		resource.add(linkTo(TaskController.class).slash("").slash(task.getId()).withSelfRel());
-		resource.add(linkTo(ProjectController.class).slash(task.getId()).slash("projects").withRel("projects"));
-		resource.add(linkTo(TaskController.class).slash(task.getId()).slash("jobs").withRel("jobs"));
+		resource.add(linkTo(TaskController.class).slash("").slash(object.getId()).withSelfRel());
+		resource.add(linkTo(ProjectController.class).slash(object.getId()).slash("projects").withRel("projects"));
+		resource.add(linkTo(TaskController.class).slash(object.getId()).slash("jobs").withRel("jobs"));
 		return resource;
 	}
 

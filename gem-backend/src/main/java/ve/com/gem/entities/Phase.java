@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Phase {
+public class Phase implements Measurable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -279,6 +279,19 @@ public class Phase {
 	@Override
 	public String toString() {
 		return "Phase [id=" + id + ", name=" + name + "]";
+	}
+
+	/*
+	 * Returns value of advance based on the average advance of all related tasks.
+	 * @see ve.com.gem.entities.Measurable#getAdvance()
+	 */
+	@Override
+	public Float getAdvance() {
+		Float advance = 0F;
+		for (Task task : tasks) {
+			advance+=task.getAdvance();
+		}
+		return (advance/tasks.size());
 	}
 
 }

@@ -41,6 +41,16 @@ public class TaskResource extends ResourceSupport {
 	
 	private Long ids;
 	private String phaseName;
+	
+	private Float advance;
+
+	public Float getAdvance() {
+		return advance;
+	}
+
+	public void setAdvance(Float advance) {
+		this.advance = advance;
+	}
 
 	public ve.com.gem.entities.Phase getPhase() {
 		return phase;

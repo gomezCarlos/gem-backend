@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Task {
+public class Task implements Measurable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +34,8 @@ public class Task {
 	private Timestamp deletedAt;
 	@Column
 	private Boolean isActive;
+	@OneToMany
+	private List<Job> jobs = new ArrayList<Job>();
 
 	@ManyToOne
 	@JoinColumn(name = "document_state_id")
@@ -175,6 +177,14 @@ public class Task {
 		this.estimatedDateEnd = estimatedDateEnd;
 	}
 
+	public List<Job> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<Job> jobs) {
+		this.jobs = jobs;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -208,6 +218,21 @@ public class Task {
 	@Override
 	public String toString() {
 		return "Task [id=" + id + ", name=" + name + "]";
+	}
+
+	/*
+	 * 
+	 * Returns value of advance based on the average advance of all related jobs.
+	 * 
+	 * @see ve.com.gem.entities.Measurable#getAdvance()
+	 */
+	@Override
+	public Float getAdvance() {
+		Float advance = 0F;
+		for (Job job : jobs) {
+			advance+=job.getAdvance();
+		}
+		return (advance/jobs.size());
 	}
 
 }
