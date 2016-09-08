@@ -84,4 +84,11 @@ public class JobService implements IJobService {
 		return !repository.exists(id);
 	}
 
+	@Override
+	public Page<Job> findByTaskId(Long id, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return repository.findByTaskId(id, pageable);
+	}
+
+
 }

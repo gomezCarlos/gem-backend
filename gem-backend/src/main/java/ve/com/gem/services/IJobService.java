@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import ve.com.gem.entities.Job;
+import ve.com.gem.entities.Task;
 
 public interface IJobService {
 
@@ -14,4 +15,6 @@ public interface IJobService {
 	public Job findById (Long id);
 	
 	boolean delete(Job object);
+	
+	public Page<Job> findByTaskId(Long id, Pageable pageable);
 }

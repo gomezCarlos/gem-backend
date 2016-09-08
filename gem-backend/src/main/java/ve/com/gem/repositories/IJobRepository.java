@@ -2,6 +2,7 @@ package ve.com.gem.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,7 @@ public interface IJobRepository extends PagingAndSortingRepository<Job, Long> {
 
 	@SuppressWarnings("unchecked")
 	Job save(Job object);
+
+	public Page<Job> findByTaskId(Long id, Pageable pageable);
 
 }
