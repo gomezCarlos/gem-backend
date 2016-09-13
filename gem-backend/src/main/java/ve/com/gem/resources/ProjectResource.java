@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
+import ve.com.gem.entities.Department;
 import ve.com.gem.entities.Indicator;
 
 @Relation(collectionRelation = "projects")
@@ -33,9 +34,30 @@ public class ProjectResource extends ResourceSupport {
 	private String indicatorName;
 	// @JsonManagedReference
 	private Indicator indicator;
+	
     
 	private int value;
 	
+	private String departmentName;
+	// @JsonManagedReference
+	private Department department;
+	
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	private Long ids;
 	
 	private Float advance;
@@ -160,6 +182,8 @@ public class ProjectResource extends ResourceSupport {
 	public void setValue(int value) {
 		this.value = value;
 	}
+
+	
 
 	
 

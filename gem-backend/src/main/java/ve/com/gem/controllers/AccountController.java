@@ -75,6 +75,13 @@ public class AccountController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value = "/current", method = RequestMethod.GET)
+	public ResponseEntity<AccountResource> getCurrentUser(Pageable pageable) {
+		
+		Account account = service.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+		return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "search/findByUsername/{username}/", method = RequestMethod.GET)
 	public ResponseEntity<AccountResource> findByUsername(@PathVariable String username) {

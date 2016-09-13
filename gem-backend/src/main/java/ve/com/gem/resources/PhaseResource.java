@@ -10,6 +10,7 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
 import ve.com.gem.entities.Department;
+import ve.com.gem.entities.Indicator;
 import ve.com.gem.entities.Project;
 
 
@@ -30,8 +31,15 @@ public class PhaseResource extends ResourceSupport {
 	private Date estimatedDateEnd;
 	@Column
 	private Date dateEnd;
+	private String indicatorName;
+	// @JsonManagedReference
+	private Indicator indicator;
+	
 	
 	private Float advance;
+	
+	// @JsonManagedReference
+	private Department department;
 
 	public Float getAdvance() {
 		return advance;
@@ -85,7 +93,7 @@ public class PhaseResource extends ResourceSupport {
 
 	private Project project;
 	
-	private Department department;
+
 	
 	public String getDepartmentName() {
 		return departmentName;
@@ -156,6 +164,22 @@ public class PhaseResource extends ResourceSupport {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getIndicatorName() {
+		return indicatorName;
+	}
+
+	public void setIndicatorName(String indicatorName) {
+		this.indicatorName = indicatorName;
+	}
+
+	public Indicator getIndicator() {
+		return indicator;
+	}
+
+	public void setIndicator(Indicator indicator) {
+		this.indicator = indicator;
 	}
 
 }

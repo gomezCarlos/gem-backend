@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -41,10 +42,21 @@ public class Phase implements Measurable {
 	private Date dateEnd;
 	@Column
 	private Float value;
+	@ManyToOne
+	@JoinColumn(name = "indicator_id")
+	private Indicator indicator;
 
 	@OneToMany
 	private List<Task> tasks = new ArrayList<Task>();
 	
+	public Indicator getIndicator() {
+		return indicator;
+	}
+
+	public void setIndicator(Indicator indicator) {
+		this.indicator = indicator;
+	}
+
 	public Date getEstimatedStartDate() {
 		return estimatedStartDate;
 	}

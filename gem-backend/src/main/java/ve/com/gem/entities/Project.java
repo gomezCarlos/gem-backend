@@ -49,6 +49,9 @@ public class Project implements Measurable{
 	@ManyToOne
 	@JoinColumn(name = "indicator_id")
 	private Indicator indicator;
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
 	
 		
 	//@ManyToOne
@@ -56,6 +59,16 @@ public class Project implements Measurable{
 	//private Risk risk;
 
 	
+	public Department getDepartment() {
+		return department;
+	}
+
+
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	private String status;
 
 	public Project(Long id) {
@@ -68,9 +81,7 @@ public class Project implements Measurable{
 	@ManyToMany
 	private List<Nature> natures = new ArrayList<Nature>();
 
-	@ManyToMany
-	private List<Department> departments = new ArrayList<Department>();
-	
+		
 	@ManyToMany
 	private List<Employee> responsible = new ArrayList<Employee>();
 
@@ -100,8 +111,7 @@ public class Project implements Measurable{
 		this.indicator = indicator;
 		this.status = status;
 		this.phases = phases;
-		this.natures = natures;
-		this.departments = departments;
+		this.natures = natures;		
 		this.responsible = responsible;
 	}
 
@@ -241,19 +251,7 @@ public class Project implements Measurable{
 		this.status = status;
 	}
 
-	/**
-	 * @return the departments
-	 */
-	public List<Department> getDepartments() {
-		return departments;
-	}
-
-	/**
-	 * @param departments the departments to set
-	 */
-	public void setDepartments(List<Department> departments) {
-		this.departments = departments;
-	}
+	
 
 	/**
 	 * @return the responsible
@@ -314,7 +312,7 @@ public class Project implements Measurable{
 				+ ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + ", isActive=" + isActive
 				+ ", estimatedStartDate=" + estimatedStartDate + ", startDate=" + startDate + ", estimatedDateEnd="
 				+ estimatedDateEnd + ", dateEnd=" + dateEnd + ", value=" + value + ", indicator=" + indicator
-				+ ", status=" + status + ", phases=" + phases + ", natures=" + natures + ", departments=" + departments
+				+ ", status=" + status + ", phases=" + phases + ", natures=" + natures + ", department=" + department
 				+ ", responsible=" + responsible + "]";
 	}
 

@@ -34,12 +34,19 @@ public class ProjectResourceAssembler extends ResourceAssemblerSupport<Project, 
 		resource.setIsActive(object.getIsActive());
 		resource.setIds(object.getId());
 		resource.setIndicator(object.getIndicator());
+		resource.setDepartment(object.getDepartment());
 		resource.setAdvance(object.getAdvance());
+		resource.setValue(object.getValue());
 		//MOISES		
 		if(resource.getIndicator()!=null){
 			resource.setIndicatorName(resource.getIndicator().getName());
 			resource.add(linkTo(ProjectController.class).slash(resource.getId()).withRel("indicator"));
 		}
+		//MOISES		
+				if(resource.getDepartment()!=null){
+					resource.setDepartmentName(resource.getDepartment().getName());
+					resource.add(linkTo(ProjectController.class).slash(resource.getId()).withRel("department"));
+				}
 		resource.add(linkTo(ProjectController.class).slash(object.getId()).withSelfRel());
 		resource.add(linkTo(ProjectController.class).slash(object.getId()).slash("phases").withRel("phases"));
 		return resource;
