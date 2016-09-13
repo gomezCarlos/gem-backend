@@ -331,7 +331,4 @@ public class Project implements Measurable{
 		}
 		return (advance/phases.size());
 	}
-
-	
-
 }
