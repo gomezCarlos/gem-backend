@@ -9,6 +9,9 @@ import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType
 @EnableHypermediaSupport(type = { HypermediaType.HAL })
 public class GemBackendApplication {
 
+	/*
+	 * Main app.
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(GemBackendApplication.class, args);
 	
