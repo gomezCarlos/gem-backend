@@ -14,6 +14,18 @@ public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	public Company(Long id, String name, String description, Timestamp createdAt, Timestamp updatedAt,
+			Timestamp deletedAt, Boolean isActive) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.deletedAt = deletedAt;
+		this.isActive = isActive;
+	}
+
 	@Column
 	private String name;
 	@Column
@@ -22,6 +34,11 @@ public class Company {
 	private Timestamp createdAt;
 	@Column
 	private Timestamp updatedAt;
+	public Company(Long id) {
+		super();
+		this.id = id;
+	}
+
 	@Column
 	private Timestamp deletedAt;
 	@Column

@@ -233,7 +233,9 @@ public class Job implements Measurable {
 	@Override
 	public Float getAdvance() {
 		Float advance =0F;
-		advance+= value;
+		if(value != null){
+			advance+= value;
+		}
 		return advance;
 	}
 
