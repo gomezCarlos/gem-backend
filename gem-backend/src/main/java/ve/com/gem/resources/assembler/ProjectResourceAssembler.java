@@ -1,14 +1,12 @@
 package ve.com.gem.resources.assembler;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
-import ve.com.gem.controllers.JobController;
 import ve.com.gem.controllers.ProjectController;
 import ve.com.gem.entities.Project;
-import ve.com.gem.resources.JobResource;
 import ve.com.gem.resources.ProjectResource;
 
 @Component
@@ -49,6 +47,8 @@ public class ProjectResourceAssembler extends ResourceAssemblerSupport<Project, 
 				}
 		resource.add(linkTo(ProjectController.class).slash(object.getId()).withSelfRel());
 		resource.add(linkTo(ProjectController.class).slash(object.getId()).slash("phases").withRel("phases"));
+		
+		resource.add(linkTo(ProjectController.class).slash(object.getId()).slash("responsibles").withRel("responsibles"));
 		return resource;
 	}
 	

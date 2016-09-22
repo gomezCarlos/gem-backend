@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 
 import ve.com.gem.entities.Account;
-import ve.com.gem.entities.Charge;
-import ve.com.gem.entities.Department;
 import ve.com.gem.repositories.IAccountRepository;
 import ve.com.gem.repositories.IChargeRepository;
 import ve.com.gem.repositories.IDepartmentRepository;

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +47,7 @@ public class Phase implements Measurable {
 	@JoinColumn(name = "indicator_id")
 	private Indicator indicator;
 
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<Task> tasks = new ArrayList<Task>();
 	
 	public Indicator getIndicator() {

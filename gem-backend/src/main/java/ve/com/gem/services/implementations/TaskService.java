@@ -20,11 +20,9 @@ import ve.com.gem.controllers.DocumentStateController;
 import ve.com.gem.entities.DocumentState;
 import ve.com.gem.entities.Job;
 import ve.com.gem.entities.Phase;
-import ve.com.gem.entities.Project;
 import ve.com.gem.entities.Task;
 import ve.com.gem.repositories.IDocumentStateRepository;
 import ve.com.gem.repositories.IPhaseRepository;
-import ve.com.gem.repositories.IProjectRepository;
 import ve.com.gem.repositories.ITaskRepository;
 import ve.com.gem.resources.DocumentStateResource;
 import ve.com.gem.resources.JobResource;
@@ -83,7 +81,7 @@ public class TaskService implements ITaskService {
 	public List<JobResource> findJobsFromTask(Long id) {
 		
 		Task task = repository.findOne(id);
-		List<Job> jobs = null;
+		List<Job> jobs = task.getJobs();
 		List<JobResource> jobResourceList = new ArrayList<JobResource>();
 		
 		for (Job job : jobs) {
@@ -91,7 +89,6 @@ public class TaskService implements ITaskService {
 		}
 		return jobResourceList;
 	}
-
 
 	@Override
 	public Page<Task> findByNameLike(Pageable pageable, String name) {
@@ -101,7 +98,6 @@ public class TaskService implements ITaskService {
 		return taskPages;
 	}
 	
-
 	@Override
 	public DocumentStateResource findDocumentStateFromTaskId(Long id) {
 		

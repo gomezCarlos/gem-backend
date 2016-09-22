@@ -2,15 +2,9 @@ package ve.com.gem.resources;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import ve.com.gem.entities.Risk;
 
 @Relation(collectionRelation = "tasks")
 public class TaskResource extends ResourceSupport {

@@ -52,18 +52,16 @@ public class Project implements Measurable{
 	@ManyToOne
 	@JoinColumn(name = "department_id")
 	private Department department;
-	
+	@ManyToMany
+	private List<Department> related = new ArrayList<Department>();
 		
 	//@ManyToOne
 	//@JoinColumn(name = "risk_id", nullable = true, insertable = true, updatable = true)
 	//private Risk risk;
-
 	
 	public Department getDepartment() {
 		return department;
 	}
-
-
 
 	public void setDepartment(Department department) {
 		this.department = department;
@@ -80,21 +78,18 @@ public class Project implements Measurable{
 	
 	@ManyToMany
 	private List<Nature> natures = new ArrayList<Nature>();
-
-		
+	
 	@ManyToMany
-	private List<Employee> responsible = new ArrayList<Employee>();
+	private List<Account> responsible = new ArrayList<Account>();
 
 	public Project() {
 		super();
 	}
-	
-	
-	
+		
 	public Project(Long id, String name, String description, Timestamp createdAt, Timestamp updatedAt,
 			Timestamp deletedAt, Boolean isActive, Date estimatedStartDate, Date startDate, Date estimatedDateEnd,
 			Date dateEnd, int value, Indicator indicator, String status, List<Phase> phases, List<Nature> natures,
-			List<Department> departments, List<Employee> responsible) {
+			List<Department> departments, List<Account> responsible) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -115,19 +110,13 @@ public class Project implements Measurable{
 		this.responsible = responsible;
 	}
 
-
-
 	public Indicator getIndicator() {
 		return indicator;
 	}
 
-
-
 	public void setIndicator(Indicator indicator) {
 		this.indicator = indicator;
 	}
-
-
 
 	public List<Nature> getNatures() {
 		return natures;
@@ -251,20 +240,26 @@ public class Project implements Measurable{
 		this.status = status;
 	}
 
-	
-
 	/**
 	 * @return the responsible
 	 */
-	public List<Employee> getResponsible() {
+	public List<Account> getResponsible() {
 		return responsible;
 	}
 
 	/**
 	 * @param responsible the responsible to set
 	 */
-	public void setResponsible(List<Employee> responsible) {
+	public void setResponsible(List<Account> responsible) {
 		this.responsible = responsible;
+	}
+
+	public List<Department> getRelated() {
+		return related;
+	}
+
+	public void setRelated(List<Department> related) {
+		this.related = related;
 	}
 
 	@Override
@@ -292,19 +287,13 @@ public class Project implements Measurable{
 		return true;
 	}
 
-
-
 	public int getValue() {
 		return value;
 	}
 
-
-
 	public void setValue(int value) {
 		this.value = value;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -315,7 +304,6 @@ public class Project implements Measurable{
 				+ ", status=" + status + ", phases=" + phases + ", natures=" + natures + ", department=" + department
 				+ ", responsible=" + responsible + "]";
 	}
-
 
 	/*
 	 * Returns value of advance based on the average advance of all related phases.

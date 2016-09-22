@@ -29,7 +29,7 @@ public class Job implements Measurable {
 	private Timestamp deletedAt;
 	@Column
 	private Boolean isActive;
-	@ManyToOne
+	@ManyToOne(optional=false)
 	private Account responsable;
 	@ManyToOne
 	@JsonBackReference(value = "task-job")
@@ -176,8 +176,6 @@ public class Job implements Measurable {
 	public void setResponsable(Account responsable) {
 		this.responsable = responsable;
 	}
-	
-	
 
 	public Float getValue() {
 		return value;
