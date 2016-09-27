@@ -55,6 +55,7 @@ public class Account {
 	@Column
 	private Boolean isActive;
 	
+	//Required by JSON
 	public Account(Long id){
 		super();
 		this.setId(id);
