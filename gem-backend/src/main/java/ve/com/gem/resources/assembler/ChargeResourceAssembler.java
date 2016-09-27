@@ -21,7 +21,10 @@ public class ChargeResourceAssembler extends ResourceAssemblerSupport<Charge, Ch
 		ChargeResource resource = createResourceWithId(object.getId(), object);
 		resource.setName(object.getName());
 		resource.setDescription(object.getDescription());
-		resource.setIsActive(object.getIsActive());
+		if (object.getIsActive() != null){
+			resource.setIsActive(object.getIsActive());	
+		}
+		
 		resource.setIds(object.getId());
 		//the resource link is being added automatically, so now it's commented.
 		//resource.add(linkTo(ChargeController.class).slash(object.getId()).withSelfRel());
