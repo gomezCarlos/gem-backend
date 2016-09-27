@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ve.com.gem.entities.Phase;
 import ve.com.gem.entities.Project;
+import ve.com.gem.entities.Task;
 import ve.com.gem.resources.PhaseResource;
 import ve.com.gem.resources.ProjectResource;
 import ve.com.gem.resources.assembler.PhaseResourceAssembler;
 import ve.com.gem.resources.assembler.ProjectResourceAssembler;
+import ve.com.gem.services.IJobService;
 import ve.com.gem.services.IPhaseService;
 import ve.com.gem.services.IProjectService;
+import ve.com.gem.services.ITaskService;
 
 @RestController
 @RequestMapping(value = "/api/v1/projects")
@@ -32,6 +35,12 @@ public class ProjectController {
 	
 	@Autowired
 	private IPhaseService phaseService;
+	
+	@Autowired
+	private ITaskService taskService;
+	
+	@Autowired
+	private IJobService jobService;
 
 	@Autowired
 	private ProjectResourceAssembler assembler;
@@ -72,6 +81,34 @@ public class ProjectController {
 		}
 		else
 		{
+			return new ResponseEntity<ProjectResource>(assembler.toResource(object),HttpStatus.OK);
+		}
+	}
+	
+	/**
+	 * Find one gem.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
+	public ResponseEntity<ProjectResource> advance(@PathVariable Long id)
+	{
+		Project object = service.findById(id);
+		if(null == object)
+		{
+			return new ResponseEntity<ProjectResource>(assembler.toResource(object),HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			object.setPhases(phaseService.findByProjectId(id));
+			for (Phase phase : object.getPhases()) {
+				phase.setTasks(taskService.findByPhaseId(phase.getId()));
+				for (Task task : phase.getTasks()) {
+					task.setJobs(jobService.findByTaskId(task.getId()));
+				}
+			}
+			object.setValue(object.getAdvance().intValue());
+			service.save(object);
 			return new ResponseEntity<ProjectResource>(assembler.toResource(object),HttpStatus.OK);
 		}
 	}

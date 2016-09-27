@@ -54,6 +54,11 @@ public class Account {
 	private Timestamp deletedAt;
 	@Column
 	private Boolean isActive;
+	
+	public Account(Long id){
+		super();
+		this.setId(id);
+	}
 
 	public Account(Long id, String username, String password, String authorities, Timestamp lastPasswordReset,
 			String firstname, String lastname, Department department, Charge charge, Organization organization, Timestamp createdAt,

@@ -312,9 +312,15 @@ public class Project implements Measurable{
 	@Override
 	public Float getAdvance() {
 		Float advance = 0F;
-		for (Phase phase : phases) {
+		this.getPhases().size();
+		for (Phase phase : getPhases()) {
 			advance+= phase.getAdvance();
+			System.out.println("Phase "+phase.getName()+" is at: "+phase.getAdvance());
 		}
-		return (advance/phases.size());
+		System.out.println("Project "+this.getName()+" is at: "+advance);
+		if(phases.size() != 0)
+			return (advance/phases.size());
+		else
+			return 0F;
 	}
 }

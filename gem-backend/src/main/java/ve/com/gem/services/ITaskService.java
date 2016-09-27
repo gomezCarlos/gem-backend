@@ -26,4 +26,6 @@ public interface ITaskService {
 	
 	public Page<Task> findByPhaseId(Long id, Pageable pageable);
 	
+	public List<Task> findByPhaseId(Long id);
+	
 }

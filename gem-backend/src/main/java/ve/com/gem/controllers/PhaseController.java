@@ -20,6 +20,7 @@ import ve.com.gem.resources.PhaseResource;
 import ve.com.gem.resources.TaskResource;
 import ve.com.gem.resources.assembler.PhaseResourceAssembler;
 import ve.com.gem.resources.assembler.TaskResourceAssembler;
+import ve.com.gem.services.IJobService;
 import ve.com.gem.services.IPhaseService;
 import ve.com.gem.services.ITaskService;
 
@@ -32,6 +33,9 @@ public class PhaseController {
 	
 	@Autowired
 	ITaskService taskService;
+	
+	@Autowired
+	IJobService jobService;
 	
 	@Autowired
 	private PhaseResourceAssembler assembler;
@@ -77,6 +81,31 @@ public class PhaseController {
 		}
 		else
 		{
+			return new ResponseEntity<PhaseResource>(assembler.toResource(object),HttpStatus.OK);
+		}
+	}
+	
+	/**
+	 * Find one gem.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
+	public ResponseEntity<PhaseResource> advance(@PathVariable Long id)
+	{
+		Phase object = service.findById(id);
+		if(null == object)
+		{
+			return new ResponseEntity<PhaseResource>(assembler.toResource(object),HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			object.setTasks(taskService.findByPhaseId(id));
+			for (Task task : object.getTasks()) {
+				task.setJobs(jobService.findByTaskId(task.getId()));
+			}
+			object.setValue(object.getAdvance());
+			service.save(object);
 			return new ResponseEntity<PhaseResource>(assembler.toResource(object),HttpStatus.OK);
 		}
 	}

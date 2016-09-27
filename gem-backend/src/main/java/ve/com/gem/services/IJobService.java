@@ -1,5 +1,7 @@
 package ve.com.gem.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,4 +19,6 @@ public interface IJobService {
 	boolean delete(Job object);
 	
 	public Page<Job> findByTaskId(Long id, Pageable pageable);
+
+	public List<Job> findByTaskId(Long id);
 }

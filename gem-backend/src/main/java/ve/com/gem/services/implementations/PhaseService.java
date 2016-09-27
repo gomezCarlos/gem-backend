@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import ve.com.gem.entities.Phase;
 //import ve.com.gem.repositories.IGemRepository;
 import ve.com.gem.repositories.IPhaseRepository;
+import ve.com.gem.repositories.ITaskRepository;
 import ve.com.gem.resources.DocumentStateResource;
 import ve.com.gem.resources.ProjectResource;
 import ve.com.gem.resources.TaskResource;
@@ -32,6 +33,8 @@ public class PhaseService implements IPhaseService {
 	
 	@Autowired
 	IPhaseRepository repository;
+	@Autowired
+	ITaskRepository taskRepository;
     List<Phase> objects = new ArrayList<Phase>();
     
 	public PhaseService() {
@@ -81,6 +84,7 @@ public class PhaseService implements IPhaseService {
 	@Override
 	public Phase findById(Long id) {
 		Phase phase = repository.findOne(id);
+		phase.setTasks(taskRepository.findByPhaseId(id));
 		return phase;
 	}
 
@@ -124,5 +128,11 @@ public class PhaseService implements IPhaseService {
 	public Page<Phase> findByProjectId(Long id, Pageable pageable){
 		
 		return  new  PageImpl<Phase>(Lists.newArrayList(repository.findByProjectId(id)),pageable, repository.count());
+	}
+
+	@Override
+	public List<Phase> findByProjectId(Long id) {
+		
+		return this.repository.findByProjectId(id);
 	}
 }

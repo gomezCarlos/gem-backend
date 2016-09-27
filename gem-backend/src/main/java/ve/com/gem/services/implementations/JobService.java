@@ -90,5 +90,11 @@ public class JobService implements IJobService {
 		return repository.findByTaskId(id, pageable);
 	}
 
+	@Override
+	public List<Job> findByTaskId(Long id) {
+		
+		return repository.findByTaskId(id);
+	}
+
 
 }

@@ -22,6 +22,7 @@ import ve.com.gem.entities.Job;
 import ve.com.gem.entities.Phase;
 import ve.com.gem.entities.Task;
 import ve.com.gem.repositories.IDocumentStateRepository;
+import ve.com.gem.repositories.IJobRepository;
 import ve.com.gem.repositories.IPhaseRepository;
 import ve.com.gem.repositories.ITaskRepository;
 import ve.com.gem.resources.DocumentStateResource;
@@ -41,6 +42,9 @@ public class TaskService implements ITaskService {
 	
 	@Autowired
 	private IPhaseRepository phaseRepository;
+	
+	@Autowired
+	private IJobRepository jobRepository;
 	
 	private List<Task> objects = new ArrayList<Task>();
 	
@@ -116,12 +120,11 @@ public class TaskService implements ITaskService {
 
 	@Override
 	public Task findById(Long id) {
+		Task task = null;
+		task= repository.findOne(id);
+		task.setJobs(jobRepository.findByTaskId(id));
+		return task;
 		
-		if (null != id) {
-			return repository.findOne(id);			 
-		}
-		
-		return null;
 	}
 	@Transactional(readOnly=false)
 	@Override
@@ -135,6 +138,11 @@ public class TaskService implements ITaskService {
 	public Page<Task> findByPhaseId(Long id,Pageable pageable) {
 		
 		return repository.findByPhaseId(id, pageable);
+	}
+
+	@Override
+	public List<Task> findByPhaseId(Long id) {
+		return repository.findByPhaseId(id);
 	}
 
 }

@@ -36,5 +36,7 @@ public interface IPhaseService {
 	Page<Phase> findAll(List<Phase> objects,Pageable pageable);
 	
 	Page<Phase> findByProjectId(Long id, Pageable pageable);
+
+	public List<Phase> findByProjectId(Long id);
 	
 }

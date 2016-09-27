@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ve.com.gem.entities.Task;
 import ve.com.gem.resources.TaskResource;
 import ve.com.gem.resources.assembler.TaskResourceAssembler;
+import ve.com.gem.services.IJobService;
 import ve.com.gem.services.ITaskService;
 
 @RestController
@@ -27,6 +28,8 @@ public class TaskController {
 
 	@Autowired
 	private ITaskService service;
+	@Autowired
+	IJobService jobService;
 
 	@Autowired
 	private TaskResourceAssembler assembler;
@@ -67,6 +70,27 @@ public class TaskController {
 		}
 		else
 		{
+			return new ResponseEntity<TaskResource>(assembler.toResource(object),HttpStatus.OK);
+		}
+	}
+	
+	/**
+	 * Find one gem.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
+	public ResponseEntity<TaskResource> advance(@PathVariable Long id)
+	{
+		Task object = service.findById(id);
+		
+		if(null == object)
+		{
+			return new ResponseEntity<TaskResource>(assembler.toResource(object),HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			object.setJobs(jobService.findByTaskId(id));
 			return new ResponseEntity<TaskResource>(assembler.toResource(object),HttpStatus.OK);
 		}
 	}

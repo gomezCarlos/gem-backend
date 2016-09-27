@@ -182,10 +182,10 @@ public class Job implements Measurable {
 	}
 
 	/*
-	 * Must get a float value between 0 and 1.
+	 * Must get a float value between 0 and 100.
 	 */
 	public void setValue(Float value) {
-		if(value >=0 && value <=1)
+		if(value >=0 && value <=100)
 		this.value = value;
 	}
 
@@ -233,6 +233,7 @@ public class Job implements Measurable {
 		Float advance =0F;
 		if(value != null){
 			advance+= value;
+			System.out.println(value);
 		}
 		return advance;
 	}

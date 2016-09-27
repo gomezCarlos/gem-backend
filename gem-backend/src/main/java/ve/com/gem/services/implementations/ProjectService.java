@@ -25,6 +25,7 @@ import ve.com.gem.repositories.IDocumentStateRepository;
 import ve.com.gem.repositories.IProjectRepository;
 import ve.com.gem.resources.DocumentStateResource;
 import ve.com.gem.resources.TaskResource;
+import ve.com.gem.services.IPhaseService;
 import ve.com.gem.services.IProjectService;
 
 
@@ -37,7 +38,8 @@ public class ProjectService implements IProjectService {
 	
 	//@Autowired
 	//private ITaskService taskService;
-	
+	@Autowired
+	private IPhaseService phaseService;
 	@Autowired
 	private IDocumentStateRepository documentStateRepository;
 	
@@ -119,6 +121,7 @@ public class ProjectService implements IProjectService {
 	public Project findById(Long id) {
 		
 		Project project = repository.findOne(id);
+		project.setPhases(phaseService.findByProjectId(id));
 		if (null != project) {
 			return project;
 		}

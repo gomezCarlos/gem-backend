@@ -35,7 +35,6 @@ public class ProjectResource extends ResourceSupport {
 	// @JsonManagedReference
 	private Indicator indicator;
 	
-    
 	private int value;
 	
 	private String departmentName;
@@ -149,7 +148,6 @@ public class ProjectResource extends ResourceSupport {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-
 	
 	public Long getIds() {
 		return ids;
@@ -182,9 +180,5 @@ public class ProjectResource extends ResourceSupport {
 	public void setValue(int value) {
 		this.value = value;
 	}
-
-	
-
-	
 
 }

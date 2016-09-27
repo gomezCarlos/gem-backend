@@ -300,11 +300,16 @@ public class Phase implements Measurable {
 	 */
 	@Override
 	public Float getAdvance() {
+		this.getTasks().size();
 		Float advance = 0F;
-		for (Task task : tasks) {
+		for (Task task : getTasks()) {
 			advance+=task.getAdvance();
+			System.out.println("Task "+task.getName()+" is at: "+task.getAdvance());
 		}
-		return (advance/tasks.size());
+		if(tasks.size()!=0)
+			return (advance/tasks.size());
+		else
+			return 0F;
 	}
 
 }

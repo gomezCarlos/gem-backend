@@ -227,11 +227,17 @@ public class Task implements Measurable {
 	 */
 	@Override
 	public Float getAdvance() {
+		this.getJobs().size();
 		Float advance = 0F;
-		for (Job job : jobs) {
+		for (Job job : getJobs()) {
 			advance+=job.getAdvance();
+			System.out.println("Job "+job.getName()+ " is at: "+job.getAdvance());
 		}
-		return (advance/jobs.size());
+		System.out.println("the advance is: "+advance);
+		if(jobs.size()!=0)
+			return (advance/jobs.size());
+		else
+			return 0F;
 	}
 
 }

@@ -26,4 +26,6 @@ public interface IJobRepository extends PagingAndSortingRepository<Job, Long> {
 
 	public Page<Job> findByTaskId(Long id, Pageable pageable);
 
+	public List<Job> findByTaskId(Long id);
+
 }

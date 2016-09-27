@@ -5,6 +5,7 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import ve.com.gem.controllers.JobController;
+import ve.com.gem.controllers.TaskController;
 import ve.com.gem.entities.Job;
 import ve.com.gem.resources.JobResource;
 
@@ -29,11 +30,10 @@ public class JobResourceAssembler extends ResourceAssemblerSupport<Job, JobResou
 		resource.setAdvance(object.getAdvance());
 		if(object.getTask()!=null){
 			resource.setTaskName(object.getTask().getName());
-			resource.add(linkTo(JobController.class).slash(object.getId()).withRel("task"));
+			resource.add(linkTo(TaskController.class).slash(object.getTask().getId()).withRel("task"));
 		}
 		
-		resource.add(linkTo(JobController.class).slash("").slash(object.getId()).withSelfRel());
-		resource.add(linkTo(JobController.class).slash(object.getId()).slash("tasks").withRel("tasks"));
+		resource.add(linkTo(JobController.class).slash(object.getId()).withSelfRel());
 		return resource;
 	}
 
