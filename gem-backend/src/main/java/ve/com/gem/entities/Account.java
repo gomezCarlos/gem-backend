@@ -22,7 +22,7 @@ public class Account {
 	@Column(unique = true)
 	private String username;
 
-	@NotNull
+	//@NotNull
 	private String password;
 
 	@NotNull

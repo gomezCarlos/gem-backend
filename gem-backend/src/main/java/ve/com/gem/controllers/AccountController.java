@@ -1,5 +1,8 @@
 package ve.com.gem.controllers;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +41,7 @@ public class AccountController {
 	public ResponseEntity<AccountResource> saveAccount(@RequestBody Account account) {
 
 		if (null != account && service.findByUsername(account.getUsername()) == null) {
-
+			System.out.println("CREATE USER");
 			service.save(account);
 			return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.CREATED);
 		}
@@ -128,8 +131,13 @@ public class AccountController {
 		}
 
 		if (null != account) {
-			
+			System.out.println("UPDATE USER");
 			account.setId(id);
+			if(account.getPassword() == null){
+				account.setPassword(accountSearch.getPassword());
+				account.setIsActive(accountSearch.getIsActive());
+			}
+			account.setUpdatedAt(Timestamp.from(Calendar.getInstance().toInstant()));
 			service.save(account);
 			return new ResponseEntity<AccountResource>(assembler.toResource(account), HttpStatus.OK);
 		}
