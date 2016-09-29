@@ -67,9 +67,26 @@ public class ProjectController {
 	@ResponseBody
 	public Collection<Chart> chart() {
 
-		List<Project> object = service.findAll();
+		List<Project> projects = service.findAll();
+		/*
+		 * 
+		 */
+		for (Project project : projects) {
+			project.setPhases(phaseService.findByProjectId(project.getId()));
+			for (Phase phase : project.getPhases()) {
+				phase.setTasks(taskService.findByPhaseId(phase.getId()));
+				for (Task task : phase.getTasks()) {
+					task.setJobs(jobService.findByTaskId(task.getId()));
+				}
+			}
+			project.setValue(project.getAdvance().intValue());
+			service.save(project);
+		}
+		/*
+		 * 
+		 */
 		List<Chart> charts = new ArrayList<Chart>();
-		for (Project project : object) {
+		for (Project project : projects) {
 			Chart chart = new Chart();
 			chart.setColor("rgba(255,255,255,0.8)");
 			chart.setDescription(project.getName());
