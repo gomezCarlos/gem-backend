@@ -3,9 +3,12 @@ package ve.com.gem.resources;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.ManyToOne;
+
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
+import ve.com.gem.entities.Account;
 import ve.com.gem.entities.Department;
 import ve.com.gem.entities.Indicator;
 
@@ -15,6 +18,14 @@ public class ProjectResource extends ResourceSupport {
 	private String name;
 
 	private String description;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	private Date estimatedStartDate;
 
@@ -29,6 +40,8 @@ public class ProjectResource extends ResourceSupport {
 	private Timestamp updatedAt;
 
 	private Timestamp deletedAt;
+	
+	private String username;
 
 	private Boolean isActive;
 	private String indicatorName;
@@ -40,6 +53,17 @@ public class ProjectResource extends ResourceSupport {
 	private String departmentName;
 	// @JsonManagedReference
 	private Department department;
+	
+	private Account owner;
+
+	
+	public Account getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Account owner) {
+		this.owner = owner;
+	}
 	
 	public String getDepartmentName() {
 		return departmentName;

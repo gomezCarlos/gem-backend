@@ -82,6 +82,18 @@ public class Project implements Measurable{
 	@ManyToMany
 	private List<Account> responsible = new ArrayList<Account>();
 
+	@ManyToOne
+	private Account owner;
+
+	
+	public Account getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Account owner) {
+		this.owner = owner;
+	}
+
 	public Project() {
 		super();
 	}
