@@ -13,6 +13,8 @@ public interface IProjectService {
 
 	public Page<Project> findAll(Pageable pageable);
 	
+	public List<Project> findAll();
+	
 	public Project save(Project project);
 
 	public List<TaskResource> findTaskFromProject(Long id);

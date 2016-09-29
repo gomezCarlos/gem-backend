@@ -1,5 +1,9 @@
 package ve.com.gem.controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ve.com.gem.entities.Chart;
 import ve.com.gem.entities.Phase;
 import ve.com.gem.entities.Project;
 import ve.com.gem.entities.Task;
@@ -56,6 +61,24 @@ public class ProjectController {
 	
 	public ProjectController() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	@RequestMapping(value="/chart",method=RequestMethod.GET,produces="application/hal+json")
+	@ResponseBody
+	public Collection<Chart> chart() {
+
+		List<Project> object = service.findAll();
+		List<Chart> charts = new ArrayList<Chart>();
+		for (Project project : object) {
+			Chart chart = new Chart();
+			chart.setColor("rgba(255,255,255,0.8)");
+			chart.setDescription(project.getName());
+			chart.setStats(project.getAdvance().toString());
+			chart.setIcon("refresh");
+			charts.add(chart);
+		}
+		
+		return charts;
 	}
 
 	@RequestMapping(value="",method=RequestMethod.GET,produces="application/hal+json")

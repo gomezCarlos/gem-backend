@@ -141,4 +141,10 @@ public class ProjectService implements IProjectService {
 		return !repository.exists(id);
 	}
 
+	@Override
+	public List<Project> findAll() {
+		
+		return repository.findAll();
+	}
+
 }

@@ -18,6 +18,7 @@ public interface IProjectRepository extends PagingAndSortingRepository<Project, 
 	List<Project> findByNameLike(String name, Pageable pageable);
 	List<Project> findByNameLike(String name);
 
+	List<Project> findAll();
 	@SuppressWarnings("unchecked")
 	Project save(Project object);
 
