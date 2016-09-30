@@ -69,7 +69,8 @@ public class ProjectController {
 	@ResponseBody
 	public Collection<Chart> chart() {
 
-		List<Project> projects = service.findAll();
+		//List<Project> projects = service.findAll();
+		List<Project> projects = service.findTop4ByOrderByStartDateDesc();
 		/*
 		 * 
 		 */

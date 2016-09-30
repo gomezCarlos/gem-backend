@@ -15,6 +15,8 @@ public interface IProjectService {
 	
 	public List<Project> findAll();
 	
+	public List<Project> findTop4ByOrderByStartDateDesc();
+	
 	public Project save(Project project);
 
 	public List<TaskResource> findTaskFromProject(Long id);

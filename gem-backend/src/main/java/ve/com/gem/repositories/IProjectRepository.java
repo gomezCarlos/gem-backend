@@ -22,4 +22,6 @@ public interface IProjectRepository extends PagingAndSortingRepository<Project, 
 	@SuppressWarnings("unchecked")
 	Project save(Project object);
 
+	List<Project> findTop4ByOrderByStartDateDesc();
+
 }

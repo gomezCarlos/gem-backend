@@ -147,4 +147,10 @@ public class ProjectService implements IProjectService {
 		return repository.findAll();
 	}
 
+	@Override
+	public List<Project> findTop4ByOrderByStartDateDesc() {
+		
+		return repository.findTop4ByOrderByStartDateDesc();
+	}
+
 }
