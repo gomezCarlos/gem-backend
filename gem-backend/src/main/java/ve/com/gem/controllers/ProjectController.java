@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ve.com.gem.entities.Chart;
+import ve.com.gem.entities.Job;
 import ve.com.gem.entities.Phase;
 import ve.com.gem.entities.Project;
 import ve.com.gem.entities.Task;
+import ve.com.gem.entities.Tree;
 import ve.com.gem.resources.PhaseResource;
 import ve.com.gem.resources.ProjectResource;
 import ve.com.gem.resources.assembler.PhaseResourceAssembler;
@@ -96,6 +98,57 @@ public class ProjectController {
 		}
 		
 		return charts;
+	}
+	
+	@RequestMapping(value="/tree",method=RequestMethod.GET,produces="application/json")
+	@ResponseBody
+	public Tree tree() {
+
+		List<Project> projects = service.findAll();
+		/*
+		 * 
+		 */
+		for (Project project : projects) {
+			project.setPhases(phaseService.findByProjectId(project.getId()));
+			for (Phase phase : project.getPhases()) {
+				phase.setTasks(taskService.findByPhaseId(phase.getId()));
+				for (Task task : phase.getTasks()) {
+					task.setJobs(jobService.findByTaskId(task.getId()));
+				}
+			}
+			
+		}
+		/*
+		 * 
+		 */
+		Tree tree = new Tree("Proyectos");
+		for (Project project : projects) {
+			Tree node = new Tree(project.getName());
+			node.setId(project.getId());
+			node.setType("project");
+			for (Phase phase : project.getPhases()) {
+				Tree nodePhase = new Tree(phase.getName());
+				nodePhase.setId(phase.getId());
+				nodePhase.setType("phase");
+				for (Task task : phase.getTasks()) {
+					Tree nodeTask = new Tree(task.getName());
+					nodeTask.setId(task.getId());
+					nodeTask.setType("task");
+					for (Job job : task.getJobs()) {
+						Tree nodeJob = new Tree(job.getName());
+						nodeJob.setId(job.getId());
+						nodeJob.setType("job");
+						nodeTask.getChildren().add(nodeJob);
+					}
+					nodePhase.getChildren().add(nodeTask);
+				}
+				node.getChildren().add(nodePhase);
+			}
+			
+			tree.getChildren().add(node);
+		}
+		
+		return tree;
 	}
 
 	@RequestMapping(value="",method=RequestMethod.GET,produces="application/hal+json")
