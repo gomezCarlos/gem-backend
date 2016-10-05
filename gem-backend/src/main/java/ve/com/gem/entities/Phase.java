@@ -45,7 +45,7 @@ public class Phase implements Measurable {
 	@Column
 	private Float value;
 	@Size(min=1,max=100)
-	private Float percentage = 1F;
+	private Float percentage = new Float(1F);
 	@ManyToOne
 	@JoinColumn(name = "indicator_id")
 	private Indicator indicator;
