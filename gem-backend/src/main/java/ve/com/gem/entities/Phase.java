@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Phase implements Measurable {
@@ -43,6 +44,8 @@ public class Phase implements Measurable {
 	private Date dateEnd;
 	@Column
 	private Float value;
+	@Size(min=0,max=100)
+	private Float percentage = 0F;
 	@ManyToOne
 	@JoinColumn(name = "indicator_id")
 	private Indicator indicator;
@@ -247,6 +250,14 @@ public class Phase implements Measurable {
 	
 	public void setProject(Project project) {
 		this.project = project;
+	}
+
+	public Float getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(Float percentage) {
+		this.percentage = percentage;
 	}
 
 	/*
