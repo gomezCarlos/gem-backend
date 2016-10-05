@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,7 @@ public class CalendarController {
 	
 	@RequestMapping(value="/events",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
-	public Collection<Event> events() {
+	public Collection<Event> events(@RequestParam(value="start") Date start, @RequestParam(value="end") Date end) {
 		
 		List<Event> events= new ArrayList<Event>();
 
@@ -83,13 +84,17 @@ public class CalendarController {
 						Event nodeJob = new Event(job.getName(),"job",job.getId());
 						nodeJob.setStart(new Date(job.getCreatedAt().getTime()));
 						nodeJob.setEnd(new Date(job.getCreatedAt().getTime()));
-						events.add(nodeJob);
+						if(nodeJob.getStart().before(end)&&nodeJob.getStart().after(start))
+							events.add(nodeJob);
 					}
-					events.add(nodeTask);
+					if(nodeTask.getStart().before(end)&&nodeTask.getStart().after(start))
+						events.add(nodeTask);
 				}
-				events.add(nodePhase);
+				if(nodePhase.getStart().before(end)&&nodePhase.getStart().after(start))
+					events.add(nodePhase);
 			}
-			events.add(node);
+			if(node.getStart().before(end)&&node.getStart().after(start))
+				events.add(node);
 		}
 		
 		return events;
