@@ -34,6 +34,7 @@ public class PhaseResource extends ResourceSupport {
 	private String indicatorName;
 	// @JsonManagedReference
 	private Indicator indicator;
+	private Float percentage; 
 	
 	
 	private Float advance;
@@ -181,5 +182,15 @@ public class PhaseResource extends ResourceSupport {
 	public void setIndicator(Indicator indicator) {
 		this.indicator = indicator;
 	}
+
+	public Float getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(Float percentage) {
+		this.percentage = percentage;
+	}
+	
+	
 
 }

@@ -326,7 +326,7 @@ public class Project implements Measurable{
 		Float advance = 0F;
 		this.getPhases().size();
 		for (Phase phase : getPhases()) {
-			advance+= phase.getAdvance();
+			advance+= phase.getAdvance()*(phase.getPercentage()/100);
 			System.out.println("Phase "+phase.getName()+" is at: "+phase.getAdvance());
 		}
 		System.out.println("Project "+this.getName()+" is at: "+advance);

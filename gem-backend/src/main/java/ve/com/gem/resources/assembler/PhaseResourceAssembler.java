@@ -34,6 +34,7 @@ public class PhaseResourceAssembler extends ResourceAssemblerSupport<Phase, Phas
 		//resource.setProject(phase.getProject());
 		resource.setDepartment(object.getDepartment());
 		resource.setAdvance(object.getAdvance());
+		resource.setPercentage(object.getPercentage());
 		resource.add(linkTo(PhaseController.class).slash("").slash(object.getId()).withSelfRel());
 		if(object.getProject()!=null){
 			resource.setProjectName(object.getProject().getName());
