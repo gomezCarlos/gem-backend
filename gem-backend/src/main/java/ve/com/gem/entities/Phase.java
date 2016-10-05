@@ -256,7 +256,10 @@ public class Phase implements Measurable {
 	}
 
 	public void setPercentage(Float percentage) {
-		this.percentage = percentage;
+		if(percentage>0F && percentage<=100)
+			this.percentage = percentage;
+		else
+			this.percentage = 1F;
 	}
 
 	/*
@@ -314,6 +317,7 @@ public class Phase implements Measurable {
 		Float advance = 0F;
 		for (Task task : getTasks()) {
 			advance+=task.getAdvance();
+			
 			System.out.println("Task "+task.getName()+" is at: "+task.getAdvance());
 		}
 		if(tasks.size()!=0)

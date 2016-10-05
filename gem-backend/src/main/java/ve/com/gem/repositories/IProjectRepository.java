@@ -24,4 +24,6 @@ public interface IProjectRepository extends PagingAndSortingRepository<Project, 
 
 	List<Project> findTop4ByOrderByStartDateDesc();
 
+	Project findFirsByIsDefaultOrderByCreatedAt(boolean b);
+
 }

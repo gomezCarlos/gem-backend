@@ -153,4 +153,9 @@ public class ProjectService implements IProjectService {
 		return repository.findTop4ByOrderByStartDateDesc();
 	}
 
+	@Override
+	public Project findFirsByIsDefaultOrderByCreatedAt(boolean b) {
+		return repository.findFirsByIsDefaultOrderByCreatedAt(b);
+	}
+
 }

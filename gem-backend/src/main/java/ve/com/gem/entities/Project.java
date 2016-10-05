@@ -34,6 +34,8 @@ public class Project implements Measurable{
 	private Timestamp deletedAt;
 	@Column
 	private Boolean isActive;
+	
+	private Boolean isDefault;
 
 	private Date estimatedStartDate;
 
@@ -307,6 +309,14 @@ public class Project implements Measurable{
 		this.value = value;
 	}
 
+	public Boolean getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt
@@ -326,9 +336,10 @@ public class Project implements Measurable{
 		Float advance = 0F;
 		this.getPhases().size();
 		for (Phase phase : getPhases()) {
-			advance+= phase.getAdvance();//*(phase.getPercentage()/100F)
+			advance+= phase.getAdvance()*(phase.getPercentage()/100F);
 			
 			System.out.println("Phase "+phase.getName()+" is at: "+phase.getAdvance());
+			System.out.println("Phase "+phase.getName()+" costs: "+phase.getPercentage());
 		}
 		System.out.println("Project "+this.getName()+" is at: "+advance);
 		if(phases.size() != 0)

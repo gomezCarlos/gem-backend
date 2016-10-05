@@ -101,6 +101,16 @@ public class ProjectController {
 		return charts;
 	}
 	
+	@RequestMapping(value="/quick")
+	public Project quickProject(){
+		Project project = null;
+		project = service.findFirsByIsDefaultOrderByCreatedAt(true);
+		if(null!=project)
+			project.setPhases(phaseService.findByProjectId(project.getId()));
+		
+		return project;
+	}
+	
 	@RequestMapping(value="/tree",method=RequestMethod.GET,produces="application/json")
 	@ResponseBody
 	public Tree tree() {
