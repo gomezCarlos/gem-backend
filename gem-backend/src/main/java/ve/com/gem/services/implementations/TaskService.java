@@ -55,7 +55,19 @@ public class TaskService implements ITaskService {
 			task.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
 			if(task.getPhase()!= null){
 				Phase phase = phaseRepository.findOne(task.getPhase().getId());
-			task.setPhase(phase);
+				task.setPhase(phase);
+				if(null != phase){
+					try {
+						if(task.getEstimatedStartDate().before(phase.getEstimatedStartDate()) || task.getEstimatedStartDate().after(phase.getEstimatedDateEnd())){
+							task.setEstimatedStartDate(phase.getEstimatedStartDate());
+						}
+						if(task.getEstimatedDateEnd().before(phase.getEstimatedStartDate()) || task.getEstimatedDateEnd().after(phase.getEstimatedDateEnd())){
+							task.setEstimatedDateEnd(phase.getEstimatedDateEnd());
+						}
+					} catch (Exception e) {
+						System.out.println("Error: "+e.getMessage());
+					}
+				}
 			//phase.getTask().add(task);
 			phaseRepository.save(phase);
 			}

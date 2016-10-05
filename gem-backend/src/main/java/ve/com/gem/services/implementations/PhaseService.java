@@ -2,6 +2,7 @@ package ve.com.gem.services.implementations;
 
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -18,8 +19,10 @@ import com.google.common.collect.Lists;
 
 //import ve.com.gem.entities.Gem;
 import ve.com.gem.entities.Phase;
+import ve.com.gem.entities.Project;
 //import ve.com.gem.repositories.IGemRepository;
 import ve.com.gem.repositories.IPhaseRepository;
+import ve.com.gem.repositories.IProjectRepository;
 import ve.com.gem.repositories.ITaskRepository;
 import ve.com.gem.resources.DocumentStateResource;
 import ve.com.gem.resources.ProjectResource;
@@ -36,6 +39,8 @@ public class PhaseService implements IPhaseService {
 	@Autowired
 	ITaskRepository taskRepository;
     List<Phase> objects = new ArrayList<Phase>();
+    @Autowired
+    IProjectRepository projectRepository;
     
 	public PhaseService() {
 		// TODO Auto-generated constructor stub
@@ -73,9 +78,30 @@ public class PhaseService implements IPhaseService {
 	public Phase save(Phase phase) {
 		if(null != phase)
 		{
+			try {
+				Project project = projectRepository.findOne(phase.getProject().getId());
+				System.out.println(phase);
+				System.out.println(phase.getProject());
+				
+				if(project!=null){
+					if(phase.getEstimatedStartDate().before(project.getEstimatedStartDate()) || phase.getEstimatedStartDate().after(project.getEstimatedDateEnd()) ){
+						phase.setEstimatedStartDate(project.getEstimatedStartDate());
+					}
+					if(phase.getEstimatedDateEnd().after(project.getEstimatedDateEnd()) || phase.getEstimatedDateEnd().before(project.getEstimatedStartDate())){
+						phase.setEstimatedDateEnd(project.getEstimatedDateEnd());
+					}
+				}
+				else{
+					System.out.println("Project is null.");
+				}
+			} catch (Exception e) {
+				System.out.println("Error in date: "+e.getMessage());
+				return null;
+			}
 			if(null == phase.getCreatedAt())
 				phase.setCreatedAt(new Timestamp(Calendar.getInstance().getTime().getTime()));
 			repository.save(phase);
+			
 		}
 		
 		return phase;

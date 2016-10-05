@@ -291,7 +291,7 @@ public class Phase implements Measurable {
 	 */
 	@Override
 	public String toString() {
-		return "Phase [id=" + id + ", name=" + name + "]";
+		return "Phase [id=" + id + ", name=" + name +", begin="+estimatedStartDate+", end="+estimatedDateEnd+", project=["+project+ "]]";
 	}
 
 	/*
