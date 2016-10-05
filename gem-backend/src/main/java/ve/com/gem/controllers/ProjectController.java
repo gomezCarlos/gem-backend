@@ -95,6 +95,7 @@ public class ProjectController {
 			chart.setDescription(project.getName());
 			chart.setStats(project.getAdvance().toString());
 			chart.setIcon("refresh");
+			chart.setId(project.getId());
 			charts.add(chart);
 		}
 		

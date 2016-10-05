@@ -6,6 +6,7 @@ public class Chart {
 	private String description;
 	private String stats;
 	private String icon;
+	private Long id;
 
 	public Chart() {
 		
@@ -41,6 +42,14 @@ public class Chart {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
