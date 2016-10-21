@@ -106,8 +106,6 @@ public class ProjectController {
 	public Project quickProject(){
 		Project project = null;
 		project = service.findFirsByIsDefaultOrderByCreatedAt(true);
-		if(null!=project)
-			project.setPhases(phaseService.findByProjectId(project.getId()));
 		
 		return project;
 	}

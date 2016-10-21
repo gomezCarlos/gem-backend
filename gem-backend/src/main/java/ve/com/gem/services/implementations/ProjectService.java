@@ -47,7 +47,7 @@ public class ProjectService implements IProjectService {
 	
 	
 	@Override
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(1)")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
 	public Page<Project> findAll(Pageable pageable) {
 		objects = Lists.newArrayList(repository.findAll(pageable));
 		PageImpl<Project> pages= new PageImpl<Project>(objects, pageable, repository.count());
@@ -102,6 +102,7 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Transactional(readOnly = false)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.create\")")
 	@Override
 	public Project save(Project project) {
 		if (null != project) {
@@ -118,6 +119,7 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Override
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
 	public Project findById(Long id) {
 		
 		Project project = repository.findOne(id);
@@ -129,6 +131,7 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Transactional(readOnly=false)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.delete\")")
 	@Override
 	public boolean delete(Project object) {
 		Long id=0L;
@@ -142,6 +145,7 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Override
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
 	public List<Project> findAll() {
 		
 		return repository.findAll();

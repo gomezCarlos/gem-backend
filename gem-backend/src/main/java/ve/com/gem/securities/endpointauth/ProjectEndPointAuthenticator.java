@@ -42,4 +42,30 @@ public class ProjectEndPointAuthenticator {
 		}		
 		return false;
 	}
+	
+	public boolean hasPermissionCustomizedForProjects(String dbCode) {
+
+		if (SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+			return false;
+
+        Iterable<String> listOfAuthorities = Splitter.on(',')
+       	       .trimResults()
+       	       .omitEmptyStrings()
+       	       .split(endPointServiceAuthenticationRepository.findOneByName(dbCode).getAuthorities());
+		
+		
+		Collection<? extends GrantedAuthority> grantedAuthorityList = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		for (GrantedAuthority grantedAuthority : grantedAuthorityList) {
+			for (String authority : listOfAuthorities) {
+				System.out.println("Authority: " + authority);
+				System.out.println("grantedAuthority: " + grantedAuthority);
+				if (grantedAuthority.toString().equals(authority))
+					return true;
+				else
+					continue;
+			}
+				
+		}
+		return false;
+	}
 }

@@ -7,6 +7,6 @@ import ve.com.gem.entities.EndPointServiceAuthentication;
 
 @Repository
 public interface IEndPointServiceAuthenticationRepository extends PagingAndSortingRepository<EndPointServiceAuthentication, Long>{
-
+	public EndPointServiceAuthentication findOneByName(String name); 
 	
 }
