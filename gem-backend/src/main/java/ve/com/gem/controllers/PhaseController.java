@@ -7,6 +7,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,7 @@ public class PhaseController {
 	 * @return
 	 */
 	@RequestMapping(value="",method=RequestMethod.GET,produces="application/hal+json")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.list\")")
 	@ResponseBody
 	public PagedResources<PhaseResource> loadAll(Pageable pageable){
 		
@@ -72,6 +74,7 @@ public class PhaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.view\")")
 	public ResponseEntity<PhaseResource> load(@PathVariable Long id)
 	{
 		Phase object = service.findById(id);
@@ -91,6 +94,7 @@ public class PhaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.view\")")
 	public ResponseEntity<PhaseResource> advance(@PathVariable Long id)
 	{
 		Phase object = service.findById(id);
@@ -111,6 +115,7 @@ public class PhaseController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.create\")")
 	public ResponseEntity<PhaseResource> save(@RequestBody Phase object)
 	{
 		if(service.save(object)!=null)
@@ -125,6 +130,7 @@ public class PhaseController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT, produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.update\")")
 	public ResponseEntity<PhaseResource> update(@PathVariable Long id,@RequestBody Phase object)
 	{
 		Phase search = service.findById(id);
@@ -144,6 +150,7 @@ public class PhaseController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.DELETE,produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.delete\")")
 	public ResponseEntity<Phase> delete(@PathVariable Long id){
 		Phase search = service.findById(id);
 		System.out.println(search);
@@ -159,10 +166,10 @@ public class PhaseController {
 	}
 	
 	@RequestMapping(value="/{id}/tasks", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"phase.view\")")
 	public PagedResources<TaskResource> tasks(@PathVariable Long id, Pageable pageable){
 		Page<Task> tasks = taskService.findByPhaseId(id, pageable);
 	return taskPageAssembler.toResource(tasks, taskAssembler);	
 	}
-	
 	
 }
