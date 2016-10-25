@@ -7,6 +7,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +48,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="",method=RequestMethod.GET,produces="application/hal+json")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.list\")")
 	@ResponseBody
 	public PagedResources<TaskResource> loadAll(Pageable pageable){
 		
@@ -61,6 +63,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.view\")")
 	public ResponseEntity<TaskResource> load(@PathVariable Long id)
 	{
 		Task object = service.findById(id);
@@ -80,6 +83,7 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.advance\")")
 	public ResponseEntity<TaskResource> advance(@PathVariable Long id)
 	{
 		Task object = service.findById(id);
@@ -96,6 +100,7 @@ public class TaskController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.save\")")
 	public ResponseEntity<TaskResource> save(@RequestBody Task object)
 	{
 		if(service.save(object)!=null)
@@ -110,6 +115,7 @@ public class TaskController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT, produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.update\")")
 	public ResponseEntity<TaskResource> update(@PathVariable Long id,@RequestBody Task object)
 	{
 		Task search = service.findById(id);
@@ -129,6 +135,7 @@ public class TaskController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.DELETE,produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.delete\")")
 	public ResponseEntity<Task> delete(@PathVariable Long id){
 		Task search = service.findById(id);
 		System.out.println(search);

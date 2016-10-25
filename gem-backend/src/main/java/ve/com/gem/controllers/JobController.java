@@ -7,6 +7,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,7 @@ public class JobController {
 	 * @return
 	 */
 	@RequestMapping(value="",method=RequestMethod.GET,produces="application/hal+json")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.list\")")
 	@ResponseBody
 	public PagedResources<JobResource> loadAll(Pageable pageable){
 		
@@ -56,6 +58,7 @@ public class JobController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.view\")")
 	public ResponseEntity<JobResource> load(@PathVariable Long id)
 	{
 		Job object = service.findById(id);
@@ -70,6 +73,7 @@ public class JobController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.save\")")
 	public ResponseEntity<JobResource> save(@RequestBody Job object)
 	{
 		if(service.save(object)!=null)
@@ -84,6 +88,7 @@ public class JobController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT, produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.update\")")
 	public ResponseEntity<JobResource> update(@PathVariable Long id,@RequestBody Job object)
 	{
 		Job search = service.findById(id);
@@ -103,6 +108,7 @@ public class JobController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.DELETE,produces = "application/json; charset=UTF-8")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.delete\")")
 	public ResponseEntity<Job> delete(@PathVariable Long id){
 		Job search = service.findById(id);
 		System.out.println(search);
