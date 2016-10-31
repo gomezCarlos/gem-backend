@@ -67,7 +67,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/chart",method=RequestMethod.GET,produces="application/hal+json")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
+//	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
 	@ResponseBody
 	public Collection<Chart> chart() {
 
@@ -113,7 +113,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/tree",method=RequestMethod.GET,produces="application/json")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
 	@ResponseBody
 	public Tree tree() {
 
@@ -165,7 +165,7 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value="",method=RequestMethod.GET,produces="application/hal+json")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.list\")")
 	@ResponseBody
 	public PagedResources<ProjectResource> loadAll(Pageable pageable) {
 
@@ -179,7 +179,7 @@ public class ProjectController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
 	public ResponseEntity<ProjectResource> load(@PathVariable Long id)
 	{
 		Project object = service.findById(id);
@@ -199,7 +199,7 @@ public class ProjectController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
 	public ResponseEntity<ProjectResource> advance(@PathVariable Long id)
 	{
 		Project object = service.findById(id);
@@ -223,7 +223,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.create\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.create\")")
 	public ResponseEntity<ProjectResource> save(@RequestBody Project object)
 	{
 		if(service.save(object)!=null)
@@ -238,7 +238,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.PUT, produces = "application/json; charset=UTF-8")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.update\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.update\")")
 	public ResponseEntity<ProjectResource> update(@PathVariable Long id,@RequestBody Project object)
 	{
 		Project search = service.findById(id);
@@ -258,7 +258,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.DELETE,produces = "application/json; charset=UTF-8")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.delete\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.delete\")")
 	public ResponseEntity<Project> delete(@PathVariable Long id){
 		Project search = service.findById(id);
 		System.out.println(search);
@@ -274,7 +274,7 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/{id}/phases",method=RequestMethod.GET,produces="application/hal+json")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
+	//@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"project.view\")")
 	@ResponseBody
 	public PagedResources<PhaseResource> phases(@PathVariable Long id,Pageable pageable) {
 		

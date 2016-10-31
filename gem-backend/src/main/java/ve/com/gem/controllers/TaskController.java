@@ -83,7 +83,6 @@ public class TaskController {
 	 * @return
 	 */
 	@RequestMapping(value="/{id}/advance",method=RequestMethod.GET)
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"task.advance\")")
 	public ResponseEntity<TaskResource> advance(@PathVariable Long id)
 	{
 		Task object = service.findById(id);

@@ -73,7 +73,7 @@ public class JobController {
 	}
 	
 	@RequestMapping(value="",method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
-	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.save\")")
+	@PreAuthorize("@projectEndPointAuthenticator.hasPermissionCustomizedForProjects(\"job.create\")")
 	public ResponseEntity<JobResource> save(@RequestBody Job object)
 	{
 		if(service.save(object)!=null)
